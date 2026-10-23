@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Shahraz Hussain Siyam</title>
-<meta name="description" content="CSE student at BUET. AI systems, GPU code and web services.">
+<meta name="description" content="CSE student at BUET. AI systems, embedded hardware and web services.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
@@ -81,17 +81,17 @@
     <h1>Shahraz Hussain Siyam</h1>
     <p class="role">CSE student at BUET</p>
     <p class="links"><a href="https://github.com/Morningstaaar36">GitHub</a></p>
-    <p>I build AI systems, GPU code and web services, and I test them on real data until they hold up.</p>
+    <p>I build AI systems, embedded hardware and web services, and I test them on real data until they hold up.</p>
   </header>
 
   <div class="top">
   <section>
     <h2>Interests</h2>
     <ul class="plain">
-      <li>GPU computing and fast search</li>
+      <li>Fair and reliable machine learning on graphs</li>
       <li>Language-model systems that check their own answers</li>
       <li>Distributed backends</li>
-      <li>Machine learning and quantum computing for chemistry</li>
+      <li>Machine learning and quantum computing for chemistry and drug discovery</li>
       <li>Embedded hardware</li>
     </ul>
   </section>
@@ -101,37 +101,21 @@
     <dl>
       <div><dt>Languages</dt><dd>Python, Java, TypeScript and JavaScript, C, C++, SQL, assembly.</dd></div>
 
-      <div><dt>GPUs and low-level</dt><dd>CUDA (code that runs on NVIDIA GPUs), CMake, ATmega32 microcontrollers, digital logic in Logisim.</dd></div>
+      <div><dt>Hardware and low-level</dt><dd>ATmega32 microcontrollers, bare-metal C, digital logic in Logisim, MIPS and 8086 assembly.</dd></div>
 
-      <div><dt>AI and machine learning</dt><dd>LLMs, LangChain agents, RAG (answering from retrieved documents), structured prompting, PyTorch and PyTorch Geometric, graph neural networks, multimodal learning, embeddings, Qdrant, ONNX Runtime.</dd></div>
+      <div><dt>AI and machine learning</dt><dd>LLMs, LangChain agents, RAG (answering from retrieved documents), structured prompting, PyTorch and PyTorch Geometric, graph neural networks, multimodal learning, embeddings, Qdrant.</dd></div>
 
       <div><dt>Backend</dt><dd>Java Spring Boot, microservices, Kafka (messaging between services), FastAPI, Django, PostgreSQL, Redis, Node.js, WebSockets, REST, JWT, React.</dd></div>
 
       <div><dt>Deployment</dt><dd>Docker (apps packaged to run anywhere), Azure Container Apps, CI/CD, Git.</dd></div>
 
-      <div><dt>Science and maths</dt><dd>Quantum chemistry with VQE and CUDA-Q, optimization with SciPy, interpolation, NumPy, pandas, scikit-learn.</dd></div>
+      <div><dt>Science and maths</dt><dd>Quantum chemistry with VQE and CUDA-Q, optimization with SciPy, interpolation, NumPy, pandas, scikit-learn, RDKit for molecules.</dd></div>
     </dl>
   </section>
   </div>
 
   <section class="bare">
     <h2>Projects</h2>
-
-    <article class="project">
-      <div class="pl">
-        <p class="kicker">Science claim checker</p>
-        <h3><a href="https://github.com/Morningstaaar36/Zero-Copy-GPU-Vector-Search-Re-Ranking-Engine"><span class="sr">Science claim checker on GitHub: </span>Can a GPU fact-check a science claim before you blink?</a></h3>
-        <ul class="facts"><li>5,183 papers searched in under 0.1 ms</li><li>Every quote verified</li></ul>
-        <p class="stack">CUDA, C++17, Llama 3.2, ONNX Runtime, RAG</p>
-      </div>
-      <div class="pr">
-        <h4>What it is</h4>
-        <p>You type a scientific claim, for example &quot;bariatric surgery has a positive impact on mental health&quot;. The program answers Supported, Contradicted or Not enough info, gives a confidence percentage, and explains its answer in plain English.</p>
-        <h4>How it works</h4>
-        <p>A small neural network turns the claim into 384 numbers that capture its meaning. Custom CUDA code, written from scratch, compares those numbers with 5,183 research abstracts on the GPU in under a tenth of a millisecond. A second model re-ranks the best candidates, Llama 3.2 reads them and gives the verdict, and every quote in the explanation is automatically checked against the paper it came from.</p>
-        <span class="open" aria-hidden="true">Open on GitHub</span>
-      </div>
-    </article>
 
     <article class="project">
       <div class="pl">
@@ -209,6 +193,22 @@
         <p>It predicts whether a molecule is toxic on six standard tests, including mutagenicity, heart toxicity, eye corrosion and biodegradability.</p>
         <h4>How it works</h4>
         <p>A graph neural network reads the molecule as atoms and bonds, a frozen ChemBERTa language model reads its text description (a SMILES string), and a gated fusion block combines the two views. On held-out data the AUROC score, where 1.0 is perfect, ranges from 0.84 to 0.99.</p>
+        <span class="open" aria-hidden="true">Open on GitHub</span>
+      </div>
+    </article>
+
+    <article class="project">
+      <div class="pl">
+        <p class="kicker">Drug&ndash;target affinity</p>
+        <h3><a href="https://github.com/Morningstaaar36/CSE_330_PROJECT"><span class="sr">Cold-start drug&ndash;target affinity on GitHub: </span>Will a drug stick to a protein neither has been tested against?</a></h3>
+        <ul class="facts"><li>Works on unseen drugs and proteins</li><li>Team project</li></ul>
+        <p class="stack">PyTorch, graph transformers, ESM-2, ChemBERTa</p>
+      </div>
+      <div class="pr">
+        <h4>What it is</h4>
+        <p>A model that predicts how strongly a drug binds to a protein. It is tested on drugs and proteins it has never seen, which is the hard case in real drug discovery.</p>
+        <h4>How it works</h4>
+        <p>The molecule and the protein&#x27;s binding pocket are each turned into a graph. Two large pretrained models, ChemBERTa for molecules and ESM-2 for proteins, first teach the graph encoders which molecules and proteins are alike. Attention then links the drug&#x27;s atoms to the pocket&#x27;s residues to predict the binding strength. On the Davis kinase benchmark it had the lowest error of the compared methods on new drugs. Built with two teammates for the Machine Learning course.</p>
         <span class="open" aria-hidden="true">Open on GitHub</span>
       </div>
     </article>
