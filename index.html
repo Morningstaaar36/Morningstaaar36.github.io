@@ -23,7 +23,7 @@
 
   * { box-sizing: border-box; }
   body { margin: 0; background: var(--bg); color: var(--body); font: 400 1rem/1.7 "Inter", system-ui, sans-serif; -webkit-font-smoothing: antialiased; }
-  main { max-width: 720px; margin: 0 auto; padding: 64px 20px 80px; }
+  main { max-width: 1120px; margin: 0 auto; padding: 48px 28px 64px; }
   a { color: var(--link); text-underline-offset: 3px; }
   a:focus-visible { outline: 2px solid var(--link); outline-offset: 3px; }
 
@@ -31,25 +31,29 @@
   h1 { font-size: 2rem; line-height: 1.2; font-weight: 600; color: var(--white); margin: 0 0 4px; letter-spacing: -0.015em; }
   .role { color: var(--muted); margin: 0 0 16px; }
   .links { margin: 0 0 24px; }
-  header p:last-child { color: var(--body); font-size: 1.08rem; margin: 0 0 32px; }
+  header p:last-child { color: var(--body); font-size: 1.08rem; max-width: 40em; margin: 0 0 28px; }
 
   /* every section and project sits in its own box */
   section, .project { background: var(--box); border: 1px solid var(--box-line); border-radius: 12px; padding: 24px 26px; margin-bottom: 20px; }
-  section.bare { background: none; border: 0; padding: 0; }
+  section.bare { background: none; border: 0; padding: 0; margin: 0; display: grid; gap: 20px; grid-template-columns: repeat(auto-fill, minmax(min(100%, 440px), 1fr)); }
+  section.bare h2 { grid-column: 1 / -1; }
+  .top { display: grid; gap: 20px; margin-bottom: 8px; align-items: start; }
+  .top > section { margin-bottom: 0; }
+  @media (min-width: 900px) { .top { grid-template-columns: 1fr 2fr; } dl { grid-template-columns: 1fr 1fr; gap: 20px 32px; } dl > div dt { margin-top: 0; } }
   h2 { font-size: 1.05rem; font-weight: 600; color: var(--white); margin: 0 0 14px; }
-  section.bare h2 { margin: 28px 0 16px; font-size: 1.25rem; }
+  section.bare h2 { margin: 16px 0 0; font-size: 1.25rem; }
   p { margin: 0 0 14px; }
 
   ul.plain { margin: 0; padding-left: 20px; }
   ul.plain li { margin-bottom: 4px; }
   ul.plain li::marker { color: var(--tech); }
 
-  dl { margin: 0; }
+  dl { margin: 0; display: grid; gap: 18px; }
   dt { font-weight: 600; color: var(--white); margin-top: 14px; }
   dt:first-child { margin-top: 0; }
   dd { margin: 2px 0 0; color: var(--body); }
 
-  .project { position: relative; padding: 22px 26px 20px; transition: border-color .15s; }
+  .project { position: relative; display: flex; flex-direction: column; margin: 0; padding: 22px 26px 20px; transition: border-color .15s; }
   .project:hover, .project:focus-within { border-color: var(--link); }
   .kicker { color: var(--tech); font-size: .85rem; font-weight: 500; margin: 0 0 4px; }
   .project h3 { font-size: 1.2rem; line-height: 1.35; font-weight: 600; margin: 0 0 10px; }
@@ -57,9 +61,9 @@
   .project h3 a::after { content: ""; position: absolute; inset: 0; border-radius: 12px; }
   .project h3 a:focus-visible { outline: none; }
   .project p { margin: 0; }
-  .facts { display: flex; flex-wrap: wrap; gap: 8px; margin: 14px 0 0; padding: 0; list-style: none; }
+  .facts { display: flex; flex-wrap: wrap; gap: 8px; margin: 14px 0 14px; padding: 0; list-style: none; }
   .facts li { font-size: .84rem; color: var(--white); background: #22222B; border: 1px solid var(--box-line); border-radius: 999px; padding: 3px 12px; }
-  .project .stack { color: var(--muted); font-size: .85rem; margin-top: 14px; padding-top: 12px; border-top: 1px solid var(--box-line); }
+  .project .stack { color: var(--muted); font-size: .85rem; margin-top: auto; padding-top: 12px; border-top: 1px solid var(--box-line); }
   .open { display: inline-block; margin-top: 10px; color: var(--link); font-weight: 600; font-size: .92rem; }
   .project:hover .open { text-decoration: underline; text-underline-offset: 4px; }
   .sr { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
@@ -77,6 +81,7 @@
     <p>I build AI systems, GPU code and web services, and I test them on real data until they hold up.</p>
   </header>
 
+  <div class="top">
   <section>
     <h2>Interests</h2>
     <ul class="plain">
@@ -91,25 +96,20 @@
   <section>
     <h2>Skills</h2>
     <dl>
-      <dt>Languages</dt>
-      <dd>Python, Java, TypeScript and JavaScript, C, C++, SQL, assembly.</dd>
+      <div><dt>Languages</dt><dd>Python, Java, TypeScript and JavaScript, C, C++, SQL, assembly.</dd></div>
 
-      <dt>GPUs and low-level</dt>
-      <dd>CUDA (code that runs on NVIDIA GPUs), CMake, ATmega32 microcontrollers, digital logic in Logisim.</dd>
+      <div><dt>GPUs and low-level</dt><dd>CUDA (code that runs on NVIDIA GPUs), CMake, ATmega32 microcontrollers, digital logic in Logisim.</dd></div>
 
-      <dt>AI and machine learning</dt>
-      <dd>LLMs, LangChain agents, RAG (answering from retrieved documents), structured prompting, PyTorch and PyTorch Geometric, graph neural networks, multimodal learning, embeddings, Qdrant, ONNX Runtime.</dd>
+      <div><dt>AI and machine learning</dt><dd>LLMs, LangChain agents, RAG (answering from retrieved documents), structured prompting, PyTorch and PyTorch Geometric, graph neural networks, multimodal learning, embeddings, Qdrant, ONNX Runtime.</dd></div>
 
-      <dt>Backend</dt>
-      <dd>Java Spring Boot, microservices, Kafka (messaging between services), FastAPI, Django, PostgreSQL, Redis, Node.js, WebSockets, REST, JWT, React.</dd>
+      <div><dt>Backend</dt><dd>Java Spring Boot, microservices, Kafka (messaging between services), FastAPI, Django, PostgreSQL, Redis, Node.js, WebSockets, REST, JWT, React.</dd></div>
 
-      <dt>Deployment</dt>
-      <dd>Docker (apps packaged to run anywhere), Azure Container Apps, CI/CD, Git.</dd>
+      <div><dt>Deployment</dt><dd>Docker (apps packaged to run anywhere), Azure Container Apps, CI/CD, Git.</dd></div>
 
-      <dt>Science and maths</dt>
-      <dd>Quantum chemistry with VQE and CUDA-Q, optimization with SciPy, interpolation, NumPy, pandas, scikit-learn.</dd>
+      <div><dt>Science and maths</dt><dd>Quantum chemistry with VQE and CUDA-Q, optimization with SciPy, interpolation, NumPy, pandas, scikit-learn.</dd></div>
     </dl>
   </section>
+  </div>
 
   <section class="bare">
     <h2>Projects</h2>
