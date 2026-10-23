@@ -49,12 +49,20 @@
   dt:first-child { margin-top: 0; }
   dd { margin: 2px 0 0; color: var(--body); }
 
-  .project { padding: 20px 24px; }
-  .project h3 { font-size: 1.05rem; font-weight: 600; margin: 0 0 6px; }
-  .project h3 a { color: var(--white); text-decoration-color: var(--box-line); text-decoration-thickness: 2px; }
-  .project h3 a:hover { color: var(--link); text-decoration-color: var(--link); }
+  .project { position: relative; padding: 22px 26px 20px; transition: border-color .15s; }
+  .project:hover, .project:focus-within { border-color: var(--link); }
+  .kicker { color: var(--tech); font-size: .85rem; font-weight: 500; margin: 0 0 4px; }
+  .project h3 { font-size: 1.2rem; line-height: 1.35; font-weight: 600; margin: 0 0 10px; }
+  .project h3 a { color: var(--white); text-decoration: none; }
+  .project h3 a::after { content: ""; position: absolute; inset: 0; border-radius: 12px; }
+  .project h3 a:focus-visible { outline: none; }
   .project p { margin: 0; }
-  .project .stack { color: var(--tech); font-size: .88rem; margin-top: 12px; padding-top: 10px; border-top: 1px solid var(--box-line); }
+  .facts { display: flex; flex-wrap: wrap; gap: 8px; margin: 14px 0 0; padding: 0; list-style: none; }
+  .facts li { font-size: .84rem; color: var(--white); background: #22222B; border: 1px solid var(--box-line); border-radius: 999px; padding: 3px 12px; }
+  .project .stack { color: var(--muted); font-size: .85rem; margin-top: 14px; padding-top: 12px; border-top: 1px solid var(--box-line); }
+  .open { display: inline-block; margin-top: 10px; color: var(--link); font-weight: 600; font-size: .92rem; }
+  .project:hover .open { text-decoration: underline; text-underline-offset: 4px; }
+  .sr { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
 
   footer { margin-top: 40px; color: var(--muted); font-size: .9rem; }
 </style>
@@ -107,81 +115,120 @@
     <h2>Projects</h2>
 
     <article class="project">
-      <h3><a href="https://github.com/Morningstaaar36/Zero-Copy-GPU-Vector-Search-Re-Ranking-Engine">Science claim checker</a></h3>
-      <p>Type a science claim and it reads the relevant papers, then answers supported, contradicted or not enough info, with quotes it checks against the source. The paper search runs on the GPU in under a tenth of a millisecond.</p>
+      <p class="kicker">Science claim checker</p>
+      <h3><a href="https://github.com/Morningstaaar36/Zero-Copy-GPU-Vector-Search-Re-Ranking-Engine"><span class="sr">Science claim checker on GitHub: </span>Can a GPU fact-check a science claim before you blink?</a></h3>
+      <p>Type a claim and it reads the relevant papers, then answers supported, contradicted or not enough info, with quotes it checks against the source.</p>
+      <ul class="facts"><li>5,183 papers searched in under 0.1 ms</li><li>Every quote verified</li></ul>
       <p class="stack">CUDA, C++17, Llama 3.2, RAG</p>
+      <span class="open" aria-hidden="true">Open on GitHub</span>
     </article>
 
     <article class="project">
-      <h3><a href="https://github.com/Morningstaaar36/gridwise-llm-energy-optimizer">GridWise</a></h3>
-      <p>Reads an operator's notes about a campus, like "clean the solar panels from noon to 2 PM", and builds the cheapest power schedule for solar, battery and grid. Runs live on Azure.</p>
+      <p class="kicker">GridWise</p>
+      <h3><a href="https://github.com/Morningstaaar36/gridwise-llm-energy-optimizer"><span class="sr">GridWise on GitHub: </span>Can a plain-English note change tomorrow&#x27;s power plan?</a></h3>
+      <p>An operator writes &quot;clean the solar panels from noon to 2 PM&quot;. GridWise turns that into a rule and builds the cheapest schedule for solar, battery and grid.</p>
+      <ul class="facts"><li>Live on Azure</li><li>Checks its own schedule</li></ul>
       <p class="stack">Python, FastAPI, LLMs, Docker, Azure</p>
+      <span class="open" aria-hidden="true">Open on GitHub</span>
     </article>
 
     <article class="project">
-      <h3><a href="https://github.com/Morningstaaar36/ImpactAI">NagorMind</a></h3>
-      <p>Ask about a Dhaka neighbourhood and an AI agent uses 13 tools (maps, air quality, planning rules, public spending) to gather evidence and draw it on a map.</p>
+      <p class="kicker">NagorMind</p>
+      <h3><a href="https://github.com/Morningstaaar36/ImpactAI"><span class="sr">NagorMind on GitHub: </span>Did the money spent on that drain actually build a drain?</a></h3>
+      <p>Ask about a Dhaka neighbourhood and an AI agent gathers evidence from maps, air quality, planning rules and public spending, then draws it on a map.</p>
+      <ul class="facts"><li>13 tools</li><li>Answers drawn on a map</li></ul>
       <p class="stack">Node.js, LangChain, Llama 3.3 70B, WebSockets</p>
+      <span class="open" aria-hidden="true">Open on GitHub</span>
     </article>
 
     <article class="project">
-      <h3><a href="https://github.com/Morningstaaar36/teamsync">TeamSync</a></h3>
-      <p>Team chat, tasks and projects as small services that pass events through Kafka, with live notifications and an AI assistant that answers from the team's documents. Top 10 at Therap JavaFest.</p>
+      <p class="kicker">TeamSync</p>
+      <h3><a href="https://github.com/Morningstaaar36/teamsync"><span class="sr">TeamSync on GitHub: </span>How do you build a team app out of many small services that never wait on each other?</a></h3>
+      <p>Chat, tasks and projects run as separate services that pass events through Kafka, with live notifications and an AI assistant that answers from the team&#x27;s documents.</p>
+      <ul class="facts"><li>Top 10 at Therap JavaFest</li><li>Kafka events</li></ul>
       <p class="stack">Spring Boot, Kafka, Docker, LangChain, Qdrant</p>
+      <span class="open" aria-hidden="true">Open on GitHub</span>
     </article>
 
     <article class="project">
-      <h3><a href="https://github.com/Morningstaaar36/CSE-402-Numerical-Analysis-Simulation-and-Modeling-Project">Molecules on a quantum computer</a></h3>
-      <p>Estimates molecule energies with a quantum method, checks them against exact answers, and rebuilds full curves from a few points. One run used a real IBM quantum computer.</p>
+      <p class="kicker">Molecules on a quantum computer</p>
+      <h3><a href="https://github.com/Morningstaaar36/CSE-402-Numerical-Analysis-Simulation-and-Modeling-Project"><span class="sr">Molecules on a quantum computer on GitHub: </span>Can a quantum computer get a molecule&#x27;s energy right?</a></h3>
+      <p>It estimates molecule energies with a quantum method, checks each one against the exact answer, and rebuilds full curves from a few points.</p>
+      <ul class="facts"><li>692 runs checked against exact answers</li><li>One run on real IBM hardware</li></ul>
       <p class="stack">Python, VQE, CUDA-Q, IBM Quantum</p>
+      <span class="open" aria-hidden="true">Open on GitHub</span>
     </article>
 
     <article class="project">
-      <h3><a href="https://github.com/Morningstaaar36/Toxicity_Prediction">SACA-Tox</a></h3>
-      <p>Predicts whether a molecule is toxic by combining its atom graph with its text description. AUROC of 0.84 to 0.99 on six standard tests.</p>
+      <p class="kicker">SACA-Tox</p>
+      <h3><a href="https://github.com/Morningstaaar36/Toxicity_Prediction"><span class="sr">SACA-Tox on GitHub: </span>Is this molecule toxic? Ask it from two angles.</a></h3>
+      <p>The model reads a molecule as a graph of atoms and as a line of text, and combines both views to decide.</p>
+      <ul class="facts"><li>AUROC 0.84 to 0.99 on six tests</li><li>Graph + text</li></ul>
       <p class="stack">PyTorch, graph neural network, ChemBERTa</p>
+      <span class="open" aria-hidden="true">Open on GitHub</span>
     </article>
 
     <article class="project">
-      <h3><a href="https://github.com/Morningstaaar36/SFUGAG">SFUGAG</a></h3>
-      <p>Adapts a graph model to a new network fairly, without the original data or any labels. Under review at AISTATS.</p>
+      <p class="kicker">SFUGAG</p>
+      <h3><a href="https://github.com/Morningstaaar36/SFUGAG"><span class="sr">SFUGAG on GitHub: </span>Can a model stay fair on data it has no labels for?</a></h3>
+      <p>It adapts a graph model to a new network without the original data or any labels, while keeping its decisions fair.</p>
+      <ul class="facts"><li>No source data, no labels</li><li>Under review at AISTATS</li></ul>
       <p class="stack">PyTorch, PyTorch Geometric</p>
+      <span class="open" aria-hidden="true">Open on GitHub</span>
     </article>
 
     <article class="project">
-      <h3><a href="https://github.com/Morningstaaar36/geo_canon">CanonNet</a></h3>
-      <p>Turns tilted 3D scans upright using geometry alone, with no training.</p>
+      <p class="kicker">CanonNet</p>
+      <h3><a href="https://github.com/Morningstaaar36/geo_canon"><span class="sr">CanonNet on GitHub: </span>Every 3D scan arrives tilted. Can geometry alone stand it upright?</a></h3>
+      <p>It finds an object&#x27;s natural upright pose from its shape, with no training.</p>
+      <ul class="facts"><li>No training</li><li>21 object types</li></ul>
       <p class="stack">Python, point clouds</p>
+      <span class="open" aria-hidden="true">Open on GitHub</span>
     </article>
 
     <article class="project">
-      <h3><a href="https://github.com/Morningstaaar36/Reddit-Clone">Moderation platform</a></h3>
-      <p>A Reddit-style site with moderator tools (lock, pin, remove, bans, auto-moderation rules), built as separate services.</p>
+      <p class="kicker">Moderation platform</p>
+      <h3><a href="https://github.com/Morningstaaar36/Reddit-Clone"><span class="sr">Moderation platform on GitHub: </span>How does a community site enforce its rules across separate services?</a></h3>
+      <p>A Reddit-style site with moderator tools, built so posts, bans and rules each live in their own service.</p>
+      <ul class="facts"><li>Lock, pin, remove, ban</li><li>Auto-moderation rules</li></ul>
       <p class="stack">Spring Boot, microservices, React</p>
+      <span class="open" aria-hidden="true">Open on GitHub</span>
     </article>
 
     <article class="project">
-      <h3><a href="https://github.com/Morningstaaar36/SynapseSupply">SynapseSupply</a></h3>
-      <p>Predicts each shop's demand for the next 7 days and what a warehouse can send, for Eid and monsoon swings. Uses made-up data.</p>
+      <p class="kicker">SynapseSupply</p>
+      <h3><a href="https://github.com/Morningstaaar36/SynapseSupply"><span class="sr">SynapseSupply on GitHub: </span>Why do shops run out before Eid and drown in stock in the monsoon?</a></h3>
+      <p>It predicts each shop&#x27;s demand for the next 7 days and what the warehouse can send.</p>
+      <ul class="facts"><li>7-day demand forecast</li><li>Made-up data, real method</li></ul>
       <p class="stack">Python, neural networks, PostgreSQL</p>
+      <span class="open" aria-hidden="true">Open on GitHub</span>
     </article>
 
     <article class="project">
-      <h3><a href="https://github.com/Morningstaaar36/UniWorld-Gateway">UniWorld Gateway</a></h3>
-      <p>One application for many universities abroad, saved step by step, with a list of what is still missing.</p>
+      <p class="kicker">UniWorld Gateway</p>
+      <h3><a href="https://github.com/Morningstaaar36/UniWorld-Gateway"><span class="sr">UniWorld Gateway on GitHub: </span>Applying to ten universities shouldn&#x27;t mean typing your details ten times.</a></h3>
+      <p>One application is saved step by step, shows what is still missing, and can be sent to as many programmes as you like.</p>
+      <ul class="facts"><li>One form, many programmes</li><li>Shows what&#x27;s missing</li></ul>
       <p class="stack">Django, PostgreSQL</p>
+      <span class="open" aria-hidden="true">Open on GitHub</span>
     </article>
 
     <article class="project">
-      <h3><a href="https://github.com/Morningstaaar36/CSE_316">Voice-controlled robot car</a></h3>
-      <p>A phone-controlled car with voice commands that steers around obstacles by itself.</p>
+      <p class="kicker">Voice-controlled robot car</p>
+      <h3><a href="https://github.com/Morningstaaar36/CSE_316"><span class="sr">Voice-controlled robot car on GitHub: </span>Say &quot;left&quot; and a car turns. Then it dodges the wall on its own.</a></h3>
+      <p>A phone-controlled car with Bluetooth and voice commands, and distance sensors that steer it around obstacles.</p>
+      <ul class="facts"><li>Voice and Bluetooth control</li><li>Obstacle avoidance</li></ul>
       <p class="stack">C, ATmega32, Bluetooth</p>
+      <span class="open" aria-hidden="true">Open on GitHub</span>
     </article>
 
     <article class="project">
-      <h3><a href="https://github.com/Morningstaaar36/CSE_210">A processor from logic gates</a></h3>
-      <p>A small CPU built in a simulator, with a C++ assembler for its 16 instructions.</p>
+      <p class="kicker">A processor from logic gates</p>
+      <h3><a href="https://github.com/Morningstaaar36/CSE_210"><span class="sr">A processor from logic gates on GitHub: </span>Can you build a computer out of nothing but logic gates?</a></h3>
+      <p>A small CPU built in a simulator, with a C++ assembler that turns assembly code into the 1s and 0s it runs.</p>
+      <ul class="facts"><li>16 instructions</li><li>Own assembler</li></ul>
       <p class="stack">Logisim, C++, MIPS assembly</p>
+      <span class="open" aria-hidden="true">Open on GitHub</span>
     </article>
   </section>
 
