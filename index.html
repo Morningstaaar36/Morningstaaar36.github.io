@@ -10,45 +10,53 @@
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
 <style>
   :root {
-    --bg: #FFFFFF;
-    --ink: #1A1A1A;
-    --muted: #666666;
-    --line: #E8E8E8;
-    --link: #1D4ED8;
-  }
-  @media (prefers-color-scheme: dark) {
-    :root { --bg: #111111; --ink: #EDEDED; --muted: #9A9A9A; --line: #2A2A2A; --link: #7BA0FF; }
+    color-scheme: dark;
+    --bg: #0D0D10;
+    --box: #16161B;
+    --box-line: #2C2C35;
+    --white: #FFFFFF;
+    --body: #C8CAD2;
+    --muted: #8E909C;
+    --link: #7BA0FF;
+    --tech: #7DD3B0;
   }
 
   * { box-sizing: border-box; }
-  body { margin: 0; background: var(--bg); color: var(--ink); font: 400 1rem/1.7 "Inter", system-ui, sans-serif; -webkit-font-smoothing: antialiased; }
-  main { max-width: 680px; margin: 0 auto; padding: 72px 20px 96px; }
+  body { margin: 0; background: var(--bg); color: var(--body); font: 400 1rem/1.7 "Inter", system-ui, sans-serif; -webkit-font-smoothing: antialiased; }
+  main { max-width: 720px; margin: 0 auto; padding: 64px 20px 80px; }
   a { color: var(--link); text-underline-offset: 3px; }
   a:focus-visible { outline: 2px solid var(--link); outline-offset: 3px; }
 
-  h1 { font-size: 1.75rem; line-height: 1.25; font-weight: 600; margin: 0 0 4px; letter-spacing: -0.01em; }
-  .role { color: var(--muted); margin: 0 0 20px; }
-  .links { margin: 0 0 48px; }
-  .links a + a { margin-left: 16px; }
+  /* intro */
+  h1 { font-size: 2rem; line-height: 1.2; font-weight: 600; color: var(--white); margin: 0 0 4px; letter-spacing: -0.015em; }
+  .role { color: var(--muted); margin: 0 0 16px; }
+  .links { margin: 0 0 24px; }
+  header p:last-child { color: var(--body); font-size: 1.08rem; margin: 0 0 32px; }
 
-  h2 { font-size: 1rem; font-weight: 600; margin: 48px 0 14px; padding-top: 24px; border-top: 1px solid var(--line); }
+  /* every section and project sits in its own box */
+  section, .project { background: var(--box); border: 1px solid var(--box-line); border-radius: 12px; padding: 24px 26px; margin-bottom: 20px; }
+  section.bare { background: none; border: 0; padding: 0; }
+  h2 { font-size: 1.05rem; font-weight: 600; color: var(--white); margin: 0 0 14px; }
+  section.bare h2 { margin: 28px 0 16px; font-size: 1.25rem; }
   p { margin: 0 0 14px; }
 
   ul.plain { margin: 0; padding-left: 20px; }
   ul.plain li { margin-bottom: 4px; }
+  ul.plain li::marker { color: var(--tech); }
 
   dl { margin: 0; }
-  dt { font-weight: 500; margin-top: 12px; }
-  dd { margin: 0; color: var(--muted); }
+  dt { font-weight: 600; color: var(--white); margin-top: 14px; }
+  dt:first-child { margin-top: 0; }
+  dd { margin: 2px 0 0; color: var(--body); }
 
-  .project { margin-bottom: 26px; }
-  .project h3 { font-size: 1rem; font-weight: 600; margin: 0 0 2px; }
-  .project h3 a { color: var(--ink); }
-  .project h3 a:hover { color: var(--link); }
-  .project p { margin: 0 0 2px; }
-  .project .stack { color: var(--muted); font-size: .9rem; margin: 0; }
+  .project { padding: 20px 24px; }
+  .project h3 { font-size: 1.05rem; font-weight: 600; margin: 0 0 6px; }
+  .project h3 a { color: var(--white); text-decoration-color: var(--box-line); text-decoration-thickness: 2px; }
+  .project h3 a:hover { color: var(--link); text-decoration-color: var(--link); }
+  .project p { margin: 0; }
+  .project .stack { color: var(--tech); font-size: .88rem; margin-top: 12px; padding-top: 10px; border-top: 1px solid var(--box-line); }
 
-  footer { margin-top: 56px; padding-top: 24px; border-top: 1px solid var(--line); color: var(--muted); font-size: .9rem; }
+  footer { margin-top: 40px; color: var(--muted); font-size: .9rem; }
 </style>
 </head>
 <body>
@@ -95,7 +103,7 @@
     </dl>
   </section>
 
-  <section>
+  <section class="bare">
     <h2>Projects</h2>
 
     <article class="project">
