@@ -4,40 +4,426 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Shahraz Hussain Siyam</title>
+<meta name="description" content="Projects from a BUET CSE student: GPU search, energy scheduling, 3D point clouds, quantum chemistry, and software for messy real-world problems.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,700&family=Instrument+Sans:wght@400;500;600&display=swap" rel="stylesheet">
 <style>
-  :root { --bg:#fff; --fg:#1a1a1a; --muted:#666; --accent:#2563eb; --card:#f5f6f8; }
-  @media (prefers-color-scheme: dark) {
-    :root { --bg:#0f1115; --fg:#e8e8e8; --muted:#9aa0a6; --accent:#6ea8fe; --card:#181b21; }
+  :root {
+    --bg: #EEF1F4;
+    --ink: #101B26;
+    --muted: #546473;
+    --line: #C9D2DA;
+    --accent: #1F4FD8;
+    --signal: #D9830F;
+    --display: "Bricolage Grotesque", system-ui, sans-serif;
+    --body: "Instrument Sans", system-ui, sans-serif;
   }
-  body { margin:0; background:var(--bg); color:var(--fg); font:16px/1.6 system-ui,sans-serif; }
-  main { max-width:760px; margin:0 auto; padding:48px 16px; }
-  h1 { margin:0 0 4px; font-size:2rem; }
-  p.sub { margin:0 0 32px; color:var(--muted); }
-  h2 { margin:32px 0 12px; font-size:1.2rem; }
-  .grid { display:grid; gap:12px; grid-template-columns:repeat(auto-fill,minmax(220px,1fr)); }
-  .card { background:var(--card); border-radius:8px; padding:14px; }
-  .card a { color:var(--accent); text-decoration:none; font-weight:600; }
-  .card span { display:block; color:var(--muted); font-size:.9rem; }
-  footer { margin-top:48px; color:var(--muted); font-size:.85rem; }
+  @media (prefers-color-scheme: dark) {
+    :root {
+      --bg: #0E151C;
+      --ink: #E6ECF1;
+      --muted: #8FA0AF;
+      --line: #25323E;
+      --accent: #7FA2FF;
+      --signal: #F0A53A;
+    }
+  }
+
+  * { box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+  body {
+    margin: 0;
+    background: var(--bg);
+    color: var(--ink);
+    font: 400 1.0625rem/1.65 var(--body);
+    -webkit-font-smoothing: antialiased;
+  }
+  a { color: var(--accent); text-underline-offset: 3px; }
+  a:focus-visible, button:focus-visible { outline: 3px solid var(--accent); outline-offset: 3px; border-radius: 2px; }
+
+  .wrap { max-width: 1040px; margin: 0 auto; padding: 0 16px; }
+
+  /* hero */
+  .hero { display: grid; gap: 32px; align-items: center; padding: 56px 0 40px; }
+  @media (min-width: 820px) { .hero { grid-template-columns: 1.15fr 1fr; padding: 88px 0 56px; gap: 56px; } }
+  h1 {
+    font: 700 clamp(2.4rem, 7vw, 4.4rem)/1.02 var(--display);
+    letter-spacing: -0.025em;
+    margin: 0 0 20px;
+  }
+  .lede { font-size: 1.2rem; max-width: 34em; margin: 0 0 14px; }
+  .sub { color: var(--muted); max-width: 34em; margin: 0 0 24px; }
+  .links a { margin-right: 20px; font-weight: 500; }
+
+  .stage { justify-self: center; width: 100%; max-width: 420px; }
+  canvas { display: block; width: 100%; aspect-ratio: 1 / 1; }
+  .stage-bar { display: flex; gap: 16px; align-items: center; margin-top: 8px; }
+  .stage-bar button {
+    font: 600 0.95rem var(--body);
+    color: var(--bg);
+    background: var(--ink);
+    border: 0;
+    padding: 9px 18px;
+    border-radius: 999px;
+    cursor: pointer;
+    min-width: 108px;
+  }
+  .stage-bar button:hover { background: var(--accent); }
+  .stage-note { margin: 0; color: var(--muted); font-size: 0.92rem; }
+
+  /* sections */
+  section.theme { border-top: 1px solid var(--line); padding: 44px 0 20px; }
+  h2 { font: 700 clamp(1.5rem, 3.4vw, 2rem)/1.15 var(--display); letter-spacing: -0.015em; margin: 0 0 8px; max-width: 22em; }
+  .theme-intro { color: var(--muted); max-width: 38em; margin: 0 0 28px; }
+
+  .project { display: grid; gap: 6px 40px; padding: 22px 0; border-top: 1px solid var(--line); }
+  .project:first-of-type { border-top: 0; padding-top: 4px; }
+  @media (min-width: 820px) { .project { grid-template-columns: 280px 1fr; } }
+  .project h3 { font: 600 1.15rem/1.3 var(--display); margin: 0; }
+  .project h3 a { color: var(--ink); text-decoration-color: var(--accent); text-decoration-thickness: 2px; }
+  .project h3 a:hover { color: var(--accent); }
+  .stack { color: var(--muted); font-size: 0.92rem; margin: 4px 0 0; }
+  .project p { margin: 0 0 8px; max-width: 40em; }
+  .project p.role { color: var(--muted); font-size: 0.97rem; }
+  .project p:last-child { margin-bottom: 0; }
+
+  footer { border-top: 1px solid var(--line); margin-top: 32px; padding: 32px 0 56px; color: var(--muted); font-size: 0.95rem; }
 </style>
 </head>
 <body>
-<main>
-  <h1>Shahraz Hussain Siyam</h1>
-  <p class="sub">CSE student, BUET</p>
+<main class="wrap">
 
-  <h2>Projects</h2>
-  <div class="grid">
-    <div class="card"><a href="https://github.com/Morningstaaar36/gridwise-llm-energy-optimizer">gridwise-llm-energy-optimizer</a><span>LLM-based energy optimization</span></div>
-    <div class="card"><a href="https://github.com/Morningstaaar36/Zero-Copy-GPU-Vector-Search-Re-Ranking-Engine">Zero-Copy GPU Vector Search</a><span>Re-ranking engine</span></div>
-    <div class="card"><a href="https://github.com/Morningstaaar36/Toxicity_Prediction">Toxicity_Prediction</a><span>Machine learning</span></div>
-    <div class="card"><a href="https://github.com/Morningstaaar36/UniWorld-Gateway">UniWorld-Gateway</a><span>Web project</span></div>
-  </div>
+  <header class="hero">
+    <div>
+      <h1>Shahraz Hussain Siyam</h1>
+      <p class="lede">I like problems where a clever idea has to survive real data, real hardware, or a real operator.</p>
+      <p class="sub">I'm a CSE student at BUET. Most of what I build sits between AI, GPUs, 3D shapes and molecules. Below is what I've been poking at, with an honest note on what part of each was mine.</p>
+      <p class="links">
+        <a href="https://github.com/Morningstaaar36">GitHub</a>
+        <a href="#shapes">Start with the 3D work</a>
+      </p>
+    </div>
+    <div class="stage">
+      <canvas id="cloud" role="img" aria-label="A point cloud of a chair, shown at a random angle, rotating into its upright pose"></canvas>
+      <div class="stage-bar">
+        <button id="toggle" type="button">Align</button>
+        <p class="stage-note" id="note" aria-live="polite">A scanned chair at a random angle.</p>
+      </div>
+    </div>
+  </header>
 
-  <h2>Links</h2>
-  <p><a style="color:var(--accent)" href="https://github.com/Morningstaaar36">GitHub: Morningstaaar36</a></p>
+  <section class="theme" id="models">
+    <h2>Making models fast, and making them show their work</h2>
+    <p class="theme-intro">A language model that answers confidently is easy. One that is quick, can be checked, and says when it doesn't know is the harder build.</p>
 
-  <footer>&copy; 2026 Shahraz Hussain Siyam</footer>
+    <article class="project">
+      <div>
+        <h3><a href="https://github.com/Morningstaaar36/Zero-Copy-GPU-Vector-Search-Re-Ranking-Engine">Zero-Copy GPU Vector Search</a></h3>
+        <p class="stack">CUDA, C++17, Llama 3.2, ONNX Runtime</p>
+      </div>
+      <div>
+        <p>Type a scientific claim and get back a verdict: Supported, Contradicted, or Not enough info. Custom CUDA code finds the relevant papers among 5,183 abstracts in under a tenth of a millisecond, Llama 3.2 reads them, and the explanation quotes its sources.</p>
+        <p class="role">Every quotation is automatically checked against the paper it claims to come from, so the model can't invent a citation.</p>
+      </div>
+    </article>
+
+    <article class="project">
+      <div>
+        <h3><a href="https://github.com/Morningstaaar36/gridwise-llm-energy-optimizer">GridWise</a></h3>
+        <p class="stack">Python, FastAPI, Azure Container Apps</p>
+      </div>
+      <div>
+        <p>A campus operator leaves notes like "we'll wash the rooftop solar panels from noon to 2 PM" next to a day-ahead forecast. GridWise works out which notes change the plan, turns them into hard constraints, and returns the cheapest valid 24-hour grid, solar and battery schedule. It then checks its own answer before replying.</p>
+        <p class="role">Built with a teammate for the BUP CSE Fest 2026 preliminary. I built the language-model side, the service, the evaluation harness and the deployment; my teammate built most of the optimisation core. It runs live.</p>
+      </div>
+    </article>
+  </section>
+
+  <section class="theme" id="shapes">
+    <h2>Shapes in 3D</h2>
+    <p class="theme-intro">A scan comes out at whatever angle the scanner happened to be held. Finding the one agreed-upon "upright" for any object is a surprisingly deep problem, and it's what the chair above is doing.</p>
+
+    <article class="project">
+      <div>
+        <h3><a href="https://github.com/Morningstaaar36/geo_canon">CanonNet</a></h3>
+        <p class="stack">Python, point clouds, S3DIS</p>
+      </div>
+      <div>
+        <p>Rotates a point cloud into a canonical pose using geometry alone: principal axes, then symmetry detection, then a rule for each of 21 object classes. No network and no training.</p>
+        <p class="role">This is my fork of usaben's project, and the method is theirs. I prepared and added the S3DIS indoor-scene data (208 rooms) to extend it from single objects towards whole rooms.</p>
+      </div>
+    </article>
+
+    <article class="project">
+      <div>
+        <h3><a href="https://github.com/Morningstaaar36/VisAlign">VisAlign</a></h3>
+        <p class="stack">Kotlin, Jetpack Compose, TorchScript</p>
+      </div>
+      <div>
+        <p>The same job on a phone. A neural network running inside an Android app turns scanned 3D objects the right way up, with no server involved.</p>
+        <p class="role">A team project; this is my fork. The repository lists who built what.</p>
+      </div>
+    </article>
+  </section>
+
+  <section class="theme" id="science">
+    <h2>Science and research</h2>
+    <p class="theme-intro">Chemistry and fairness problems where the answer can be checked against something other than a leaderboard.</p>
+
+    <article class="project">
+      <div>
+        <h3><a href="https://github.com/Morningstaaar36/CSE-402-Numerical-Analysis-Simulation-and-Modeling-Project">Molecules on a quantum computer</a></h3>
+        <p class="stack">Python, VQE, CUDA-Q, IBM Quantum</p>
+      </div>
+      <div>
+        <p>Energy surfaces for eleven molecules, computed with the Variational Quantum Eigensolver and then rebuilt from a few samples using polynomial and spline interpolation. Every result is compared with exact diagonalisation, and one hydrogen curve ran on a real IBM quantum processor.</p>
+        <p class="role">A team of five for CSE 402. I owned the BeH₂ and O₂ work, including a 110-point surface over bond length and bond angle, their interpolation analysis, and the IBM hardware run.</p>
+      </div>
+    </article>
+
+    <article class="project">
+      <div>
+        <h3><a href="https://github.com/Morningstaaar36/Toxicity_Prediction">SACA-Tox</a></h3>
+        <p class="stack">Python, graph neural networks, ChemBERTa</p>
+      </div>
+      <div>
+        <p>Predicts whether a molecule is toxic by reading it two ways at once: as a graph of atoms and bonds, and as a SMILES string through a language model. A gated block fuses the two views. On six benchmark endpoints the test AUROC ranges from 0.84 to 0.99.</p>
+      </div>
+    </article>
+
+    <article class="project">
+      <div>
+        <h3><a href="https://github.com/Morningstaaar36/SFUGAG">SFUGAG</a></h3>
+        <p class="stack">Python, PyTorch Geometric</p>
+      </div>
+      <div>
+        <p>How do you adapt a graph neural network to a new graph so that it stays fair, when you can't see the original training data and the new graph has no labels? Only a frozen encoder and a small sensitive-attribute head cross over.</p>
+        <p class="role">Research code, under review at AISTATS.</p>
+      </div>
+    </article>
+  </section>
+
+  <section class="theme" id="systems">
+    <h2>Software for messy real-world problems</h2>
+    <p class="theme-intro">Hackathons and team builds where the data is scattered, the users are busy, and the hard part is making the pieces agree.</p>
+
+    <article class="project">
+      <div>
+        <h3><a href="https://github.com/Morningstaaar36/ImpactAI">NagorMind</a></h3>
+        <p class="stack">Node, LangChain, Llama 3.3 70B on Groq, React, Leaflet</p>
+      </div>
+      <div>
+        <p>Ask about a Dhaka neighbourhood in plain English and an AI agent chooses from 13 tools covering OpenStreetMap, live air quality and weather, planning standards and public procurement records, then draws the evidence on a map. It can also check whether money spent on a drain, clinic or road shows up on the ground.</p>
+        <p class="role">Impact Dhaka Hackathon, a team project. I wrote the backend, the agent loop, the 13 tools, the data layer and the LangChain migration. The UI and the front-end belong to RedWine356.</p>
+      </div>
+    </article>
+
+    <article class="project">
+      <div>
+        <h3><a href="https://github.com/Morningstaaar36/SynapseSupply">SynapseSupply</a></h3>
+        <p class="stack">Python, Jupyter, PostgreSQL</p>
+      </div>
+      <div>
+        <p>Shops in Bangladesh run dry before Eid and sit on stock in the monsoon, while one warehouse has to split limited supply between them. This pipeline forecasts each outlet's next seven days of demand and what the warehouse can really supply (R² of 0.85 to 0.88), and the negotiation agents are the next piece.</p>
+        <p class="role">BUP Hackathon team project, shown here as my fork. The data is synthetic, so the scores show the pipeline learns what it was given and say nothing about real sales.</p>
+      </div>
+    </article>
+
+    <article class="project">
+      <div>
+        <h3><a href="https://github.com/Morningstaaar36/teamsync">TeamSync</a></h3>
+        <p class="stack">Spring Boot, Kafka, FastAPI, LangChain, Qdrant</p>
+      </div>
+      <div>
+        <p>A team-collaboration platform split into microservices behind a gateway, with Kafka for events, WebSockets for live messages and a RAG-powered AI assistant. It placed in the top 10 at Therap JavaFest.</p>
+        <p class="role">Team project, originally by prithu-anan. My part was the distributed system design, the AI backend, and the real-time notifications.</p>
+      </div>
+    </article>
+
+    <article class="project">
+      <div>
+        <h3><a href="https://github.com/Morningstaaar36/Reddit-Clone">Reddit-style moderation stack</a></h3>
+        <p class="stack">Spring Boot services, React, Redis</p>
+      </div>
+      <div>
+        <p>A Reddit-like community platform whose interesting half is moderation: an AutoModerator rule engine, a mod queue, bans and modmail, each in its own service.</p>
+        <p class="role">Original by Tanvir Liaquat Uday and a team. I built the post lock, pin, remove and approve actions, and per-community bans enforced across services. I also fixed a hole that let any signed-in user edit or delete any community.</p>
+      </div>
+    </article>
+
+    <article class="project">
+      <div>
+        <h3><a href="https://github.com/Morningstaaar36/UniWorld-Gateway">UniWorld Gateway</a></h3>
+        <p class="stack">Django, PostgreSQL</p>
+      </div>
+      <div>
+        <p>Applying to several universities means retyping the same transcripts and test scores into every portal. This keeps one application per student, saves it section by section, shows exactly what's missing before submit, and lets the student attach it to as many programmes as they like.</p>
+      </div>
+    </article>
+  </section>
+
+  <section class="theme" id="hardware">
+    <h2>Close to the hardware</h2>
+    <p class="theme-intro">Course projects where nothing runs until every wire and every instruction is right.</p>
+
+    <article class="project">
+      <div>
+        <h3><a href="https://github.com/Morningstaaar36/CSE_316">Voice-controlled robot car</a></h3>
+        <p class="stack">C, ATmega32, HC-05, L298N, Proteus</p>
+      </div>
+      <div>
+        <p>A two-motor car you steer from your phone over Bluetooth, with buttons or spoken commands. Ultrasonic sensors scan ahead so it avoids obstacles on its own. The repository also has the 8086 assembly and LED-matrix labs that led up to it.</p>
+      </div>
+    </article>
+
+    <article class="project">
+      <div>
+        <h3><a href="https://github.com/Morningstaaar36/CSE_210">A MIPS processor, gate by gate</a></h3>
+        <p class="stack">Logisim, C++</p>
+      </div>
+      <div>
+        <p>A single-cycle MIPS datapath built in Logisim with a register file, memory, an ALU made from 7400-series chips and a control unit. A small C++ assembler turns assembly into machine code for its instruction ROM, covering 16 instructions.</p>
+        <p class="role">Team project with two classmates.</p>
+      </div>
+    </article>
+  </section>
+
+  <footer>
+    <p>All the code is on <a href="https://github.com/Morningstaaar36">github.com/Morningstaaar36</a>. Several of these are forks of team projects, and I've credited the original authors where that applies.</p>
+  </footer>
 </main>
+
+<script>
+(function () {
+  var canvas = document.getElementById('cloud');
+  var ctx = canvas.getContext('2d');
+  var btn = document.getElementById('toggle');
+  var note = document.getElementById('note');
+  var reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  // A chair, as points: seat, backrest, four legs. Upright pose = identity.
+  function rng(seed) { return function () { seed = (seed * 1664525 + 1013904223) % 4294967296; return seed / 4294967296; }; }
+  var rand = rng(7), pts = [];
+  function jit() { return (rand() - 0.5) * 0.05; }
+  var i, j, n = 11;
+  for (i = 0; i < n; i++) for (j = 0; j < n; j++) {
+    var u = -1 + 2 * i / (n - 1), v = -1 + 2 * j / (n - 1);
+    pts.push([u + jit(), 0 + jit(), v + jit()]);                       // seat
+    pts.push([u + jit(), 0.15 + 1.7 * (j / (n - 1)) + jit(), -1 + jit()]); // back
+  }
+  [[-1, -1], [1, -1], [-1, 1], [1, 1]].forEach(function (c) {
+    for (i = 1; i <= 8; i++) pts.push([c[0] + jit(), -i * 0.18 + jit(), c[1] + jit()]);
+  });
+
+  // quaternions [w, x, y, z]
+  function qrand() {
+    var q;
+    do {
+      var a = [0, 0, 0, 0].map(function () { return Math.random() * 2 - 1; });
+      var l = Math.hypot(a[0], a[1], a[2], a[3]);
+      if (l < 0.001 || l > 1) continue;
+      q = a.map(function (x) { return x / l; });
+    } while (!q || Math.abs(q[0]) > 0.5);        // keep it well away from upright
+    return q;
+  }
+  function slerp(q, t) {                         // from q to identity
+    var w = Math.min(1, Math.abs(q[0])), s = q[0] < 0 ? -1 : 1;
+    var th = Math.acos(w), sn = Math.sin(th);
+    if (sn < 1e-6) return [1, 0, 0, 0];
+    var a = Math.sin((1 - t) * th) / sn, b = Math.sin(t * th) / sn;
+    var r = [a * w * s + b, a * q[1] * s, a * q[2] * s, a * q[3] * s];
+    var l = Math.hypot(r[0], r[1], r[2], r[3]);
+    return r.map(function (x) { return x / l; });
+  }
+  function toMat(q) {
+    var w = q[0], x = q[1], y = q[2], z = q[3];
+    return [
+      1 - 2 * (y * y + z * z), 2 * (x * y - w * z), 2 * (x * z + w * y),
+      2 * (x * y + w * z), 1 - 2 * (x * x + z * z), 2 * (y * z - w * x),
+      2 * (x * z - w * y), 2 * (y * z + w * x), 1 - 2 * (x * x + y * y)
+    ];
+  }
+  function rotY(a) { var c = Math.cos(a), s = Math.sin(a); return [c, 0, s, 0, 1, 0, -s, 0, c]; }
+  function rotX(a) { var c = Math.cos(a), s = Math.sin(a); return [1, 0, 0, 0, c, -s, 0, s, c]; }
+  function mul(a, b) {
+    var r = [], r_, c_;
+    for (r_ = 0; r_ < 3; r_++) for (c_ = 0; c_ < 3; c_++)
+      r[r_ * 3 + c_] = a[r_ * 3] * b[c_] + a[r_ * 3 + 1] * b[3 + c_] + a[r_ * 3 + 2] * b[6 + c_];
+    return r;
+  }
+  var view = mul(rotX(0.42), rotY(-0.7));
+
+  function css(name) { return getComputedStyle(document.documentElement).getPropertyValue(name).trim(); }
+  function hex(h) { return [1, 3, 5].map(function (k) { return parseInt(h.substr(k, 2), 16); }); }
+  function mix(a, b, t) { return a.map(function (v, k) { return Math.round(v + (b[k] - v) * t); }); }
+
+  var q0 = qrand(), t = 0, anim = null;
+
+  function size() {
+    var r = canvas.getBoundingClientRect(), d = window.devicePixelRatio || 1;
+    canvas.width = Math.round(r.width * d);
+    canvas.height = Math.round(r.height * d);
+  }
+
+  function draw() {
+    var W = canvas.width, H = canvas.height, s = W / 5.2;
+    ctx.clearRect(0, 0, W, H);
+    var m = mul(view, toMat(slerp(q0, t)));
+    var base = hex(css('--accent')), done = hex(css('--signal'));
+    var col = mix(base, done, Math.pow(t, 4));
+    var proj = pts.map(function (p) {
+      var x = m[0] * p[0] + m[1] * p[1] + m[2] * p[2];
+      var y = m[3] * p[0] + m[4] * p[1] + m[5] * p[2];
+      var z = m[6] * p[0] + m[7] * p[1] + m[8] * p[2];
+      var f = 1 / (1 - z * 0.12);
+      return [W / 2 + x * s * f, H / 2 - (y - 0.45) * s * f, z, f];
+    }).sort(function (a, b) { return a[2] - b[2]; });
+    proj.forEach(function (p) {
+      var depth = (p[2] + 2.4) / 4.8;
+      ctx.globalAlpha = 0.25 + 0.75 * Math.max(0, Math.min(1, depth));
+      ctx.fillStyle = 'rgb(' + col.join(',') + ')';
+      ctx.beginPath();
+      ctx.arc(p[0], p[1], (1.6 + 1.5 * depth) * (W / 420) * p[3], 0, 6.2832);
+      ctx.fill();
+    });
+    ctx.globalAlpha = 1;
+  }
+
+  function setState() {
+    var aligned = t >= 1;
+    btn.textContent = aligned ? 'Scramble' : 'Align';
+    note.textContent = aligned ? 'Aligned. Every chair ends up in this pose.' : 'A scanned chair at a random angle.';
+  }
+
+  function align() {
+    if (reduce) { t = 1; draw(); setState(); return; }
+    var start = null, dur = 2200;
+    function ease(x) { return x < 0.5 ? 4 * x * x * x : 1 - Math.pow(-2 * x + 2, 3) / 2; }
+    function step(ts) {
+      if (start === null) start = ts;
+      var k = Math.min(1, (ts - start) / dur);
+      t = ease(k);
+      draw();
+      if (k < 1) anim = requestAnimationFrame(step); else { anim = null; setState(); }
+    }
+    anim = requestAnimationFrame(step);
+  }
+  function scramble() {
+    if (anim) { cancelAnimationFrame(anim); anim = null; }
+    q0 = qrand(); t = 0; draw(); setState();
+  }
+
+  btn.addEventListener('click', function () {
+    if (anim) return;
+    if (t >= 1) scramble(); else align();
+  });
+
+  size(); draw(); setState();
+  if (window.ResizeObserver) new ResizeObserver(function () { size(); draw(); }).observe(canvas);
+  window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', draw);
+  setTimeout(align, reduce ? 0 : 900);
+})();
+</script>
 </body>
 </html>
