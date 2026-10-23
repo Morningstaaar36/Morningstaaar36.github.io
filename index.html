@@ -3,121 +3,104 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<meta name="color-scheme" content="dark">
 <title>Shahraz Hussain Siyam</title>
 <meta name="description" content="Projects and skills of a BUET CSE student: GPU code, LLM systems, Spring Boot and Kafka services, quantum chemistry and embedded hardware.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Sora:wght@500;700;800&family=DM+Sans:wght@400;500;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Sora:wght@600;700;800&family=DM+Sans:wght@400;500;700&display=swap" rel="stylesheet">
 <style>
   :root {
-    --bg: #0A0E1A;
-    --panel: #131A2B;
-    --panel-2: #1A2238;
-    --line: #232D49;
-    --ink: #EEF1FB;
-    --muted: #9AA4C3;
-    --violet: #8B5CF6; --violet-t: #B9A0FF;
-    --amber: #FBBF24;  --amber-t: #FCD066;
-    --coral: #FF6B6B;  --coral-t: #FF9494;
-    --cyan: #22D3EE;   --cyan-t: #6BE3F5;
-    --mint: #34D399;   --mint-t: #6EE7B7;
+    --bg: #F4F6FF;
+    --ink: #0F1330;
+    --muted: #4A5072;
+    --line: #D9DEF5;
+    --card: #FFFFFF;
+    --hero: #5B3DF5;
+    --violet: #A98BFF;
+    --amber: #FFC53D;
+    --coral: #FF6B6B;
+    --cyan: #38D5F0;
+    --mint: #34D9A5;
+    --pink: #FF8AC6;
     --head: "Sora", system-ui, sans-serif;
     --body: "DM Sans", system-ui, sans-serif;
   }
   * { box-sizing: border-box; }
-  html { scroll-behavior: smooth; scroll-padding-top: 76px; }
-  body { margin: 0; background: var(--bg); color: var(--ink); font: 400 1.0625rem/1.6 var(--body); -webkit-font-smoothing: antialiased; overflow-x: hidden; }
+  html { scroll-behavior: smooth; scroll-padding-top: 72px; }
+  body { margin: 0; background: var(--bg); color: var(--ink); font: 400 1.0625rem/1.6 var(--body); -webkit-font-smoothing: antialiased; }
   a { color: inherit; }
-  a:focus-visible, button:focus-visible, summary:focus-visible { outline: 3px solid var(--amber); outline-offset: 3px; border-radius: 6px; }
+  a:focus-visible, button:focus-visible { outline: 3px solid var(--ink); outline-offset: 3px; border-radius: 6px; }
   .wrap { max-width: 1120px; margin: 0 auto; padding: 0 20px; }
 
+  /* colour roles: --c is a bright fill, text on it is always ink */
+  .k-ai   { --c: var(--violet); }
+  .k-sci  { --c: var(--amber); }
+  .k-app  { --c: var(--coral); }
+  .k-hw   { --c: var(--cyan); }
+  .k-ship { --c: var(--mint); }
+  .k-ml   { --c: var(--pink); }
+
   /* nav */
-  nav { position: sticky; top: 0; z-index: 10; background: rgba(10,14,26,.85); backdrop-filter: blur(10px); border-bottom: 1px solid var(--line); }
-  nav .wrap { display: flex; align-items: center; justify-content: space-between; height: 60px; }
-  .brand { font: 800 1.1rem var(--head); text-decoration: none; letter-spacing: -.01em; }
+  nav { position: sticky; top: 0; z-index: 10; background: var(--ink); color: #fff; }
+  nav .wrap { display: flex; align-items: center; justify-content: space-between; height: 58px; }
+  .brand { font: 800 1.1rem var(--head); text-decoration: none; }
   .brand span { color: var(--amber); }
   nav ul { display: flex; gap: 22px; margin: 0; padding: 0; list-style: none; font-weight: 500; font-size: .98rem; }
-  nav ul a { text-decoration: none; color: var(--muted); }
-  nav ul a:hover { color: var(--ink); }
+  nav ul a { text-decoration: none; }
+  nav ul a:hover { color: var(--amber); }
   @media (max-width: 520px) { nav ul { gap: 14px; font-size: .9rem; } }
 
   /* hero */
-  .hero { position: relative; padding: 88px 0 56px; overflow: hidden; }
-  .glow { position: absolute; border-radius: 50%; filter: blur(90px); opacity: .35; pointer-events: none; }
-  .g1 { width: 420px; height: 420px; background: var(--violet); top: -140px; left: -80px; }
-  .g2 { width: 360px; height: 360px; background: var(--cyan); top: 40px; right: -100px; opacity: .22; }
-  .g3 { width: 300px; height: 300px; background: var(--coral); bottom: -160px; left: 45%; opacity: .2; }
-  .hero .wrap { position: relative; }
-  .hello { color: var(--amber-t); font-weight: 700; margin: 0 0 12px; }
-  h1 { font: 800 clamp(2.5rem, 7.5vw, 5.2rem)/1.02 var(--head); letter-spacing: -.035em; margin: 0 0 22px; }
-  .tag { font-size: clamp(1.1rem, 2.3vw, 1.4rem); color: #CBD2EA; max-width: 31em; margin: 0 0 30px; line-height: 1.5; }
-  .btns { display: flex; flex-wrap: wrap; gap: 12px; margin-bottom: 36px; }
-  .btn { display: inline-block; font: 700 1rem var(--body); padding: 13px 24px; border-radius: 12px; text-decoration: none; }
-  .btn.main { background: var(--amber); color: #1A1400; }
-  .btn.main:hover { background: #FFD24D; }
-  .btn.alt { border: 1.5px solid var(--line); background: var(--panel); }
-  .btn.alt:hover { border-color: var(--violet); }
+  .hero { background: var(--hero); color: #fff; padding: 80px 0 56px; }
+  .hello { color: var(--amber); font-weight: 700; margin: 0 0 10px; }
+  h1 { font: 800 clamp(2.5rem, 7.5vw, 5.2rem)/1.02 var(--head); letter-spacing: -.035em; margin: 0 0 20px; }
+  .tag { font-size: clamp(1.1rem, 2.3vw, 1.4rem); color: #E7E2FF; max-width: 31em; margin: 0 0 28px; line-height: 1.5; }
+  .btns { display: flex; flex-wrap: wrap; gap: 12px; margin-bottom: 32px; }
+  .btn { display: inline-block; font: 700 1rem var(--body); padding: 13px 24px; border-radius: 10px; text-decoration: none; }
+  .btn.main { background: var(--amber); color: var(--ink); }
+  .btn.alt { background: #fff; color: var(--ink); }
   .chips { display: flex; flex-wrap: wrap; gap: 8px; margin: 0; padding: 0; list-style: none; }
-  .chips li { font-weight: 600; font-size: .92rem; padding: 5px 13px; border-radius: 999px; color: #0A0E1A; }
-  .c-v { background: var(--violet-t); } .c-a { background: var(--amber-t); } .c-c { background: var(--coral-t); }
-  .c-y { background: var(--cyan-t); } .c-m { background: var(--mint-t); }
+  .chips li { font-weight: 700; font-size: .92rem; padding: 5px 14px; border-radius: 999px; color: var(--ink); background: var(--c); }
 
   /* highlights */
-  .hl { display: grid; gap: 14px; grid-template-columns: repeat(auto-fit, minmax(230px, 1fr)); margin: 8px 0 24px; }
-  .hl div { background: var(--panel); border: 1px solid var(--line); border-radius: 16px; padding: 18px 20px; border-left: 5px solid var(--c); }
-  .hl b { display: block; font: 800 1.5rem/1.2 var(--head); color: var(--ct); margin-bottom: 4px; }
-  .hl span { color: var(--muted); font-size: .96rem; }
+  .hl { display: grid; gap: 14px; grid-template-columns: repeat(auto-fit, minmax(230px, 1fr)); margin: -28px 0 8px; position: relative; }
+  .hl div { background: var(--c); color: var(--ink); border-radius: 14px; padding: 18px 20px 20px; }
+  .hl b { display: block; font: 800 1.55rem/1.2 var(--head); margin-bottom: 4px; }
+  .hl span { font-weight: 500; font-size: .98rem; line-height: 1.45; display: block; }
 
   /* section titles */
   section { padding: 64px 0 8px; }
-  h2 { font: 800 clamp(1.8rem, 4vw, 2.5rem)/1.1 var(--head); letter-spacing: -.025em; margin: 0 0 10px; }
+  h2 { font: 800 clamp(1.9rem, 4vw, 2.6rem)/1.1 var(--head); letter-spacing: -.025em; margin: 0 0 10px; }
   .lead { color: var(--muted); max-width: 38em; margin: 0 0 32px; }
 
   /* skills */
-  .sg { margin-bottom: 34px; }
-  .sg h3 { font: 700 1.1rem var(--head); color: var(--ct); margin: 0 0 14px; display: flex; align-items: center; gap: 10px; }
-  .sg h3::before { content: ""; width: 12px; height: 12px; border-radius: 4px; background: var(--c); }
-  .sk { display: grid; gap: 12px; grid-template-columns: repeat(auto-fill, minmax(250px, 1fr)); }
-  .sk div { background: var(--panel); border: 1px solid var(--line); border-top: 3px solid var(--c); border-radius: 12px; padding: 14px 16px 15px; }
-  .sk b { display: block; font-weight: 700; margin-bottom: 4px; }
-  .sk span { display: block; color: var(--muted); font-size: .95rem; line-height: 1.5; }
+  .sg { margin-bottom: 36px; }
+  .sg h3 { display: inline-block; font: 700 1.1rem var(--head); background: var(--c); color: var(--ink); margin: 0 0 16px; padding: 6px 18px; border-radius: 10px; }
+  .sk { display: grid; gap: 14px; grid-template-columns: repeat(auto-fill, minmax(250px, 1fr)); }
+  .sk div { background: var(--card); border: 1px solid var(--line); border-top: 6px solid var(--c); border-radius: 12px; padding: 14px 16px 16px; }
+  .sk b { display: block; font: 700 1.02rem var(--head); margin-bottom: 4px; }
+  .sk span { display: block; color: var(--muted); font-size: .96rem; line-height: 1.5; }
 
   /* filters */
   .filters { display: flex; flex-wrap: wrap; gap: 10px; margin: 0 0 28px; }
-  .filters button { font: 600 .95rem var(--body); color: var(--muted); background: var(--panel); border: 1.5px solid var(--line); padding: 8px 18px; border-radius: 999px; cursor: pointer; }
-  .filters button:hover { color: var(--ink); border-color: var(--muted); }
-  .filters button[aria-pressed="true"] { background: var(--ink); color: var(--bg); border-color: var(--ink); }
+  .filters button { font: 700 .95rem var(--body); color: var(--ink); background: var(--card); border: 2px solid var(--ink); padding: 8px 20px; border-radius: 999px; cursor: pointer; }
+  .filters button[aria-pressed="true"] { background: var(--ink); color: #fff; }
 
   /* project cards */
-  .grid { display: grid; gap: 18px; grid-template-columns: repeat(auto-fill, minmax(320px, 1fr)); align-items: start; }
-  .card { background: var(--panel); border: 1px solid var(--line); border-radius: 18px; overflow: hidden; display: flex; flex-direction: column; transition: border-color .15s, transform .15s; }
-  .card:hover { border-color: var(--c); transform: translateY(-3px); }
+  .grid { display: grid; gap: 20px; grid-template-columns: repeat(auto-fill, minmax(320px, 1fr)); }
+  .card { background: var(--card); border: 1px solid var(--line); border-radius: 16px; overflow: hidden; display: flex; flex-direction: column; }
   .card[hidden] { display: none; }
-  .card .bar { height: 6px; background: var(--c); }
-  .card .in { padding: 20px 22px 18px; }
-  .cat { display: inline-block; font-weight: 700; font-size: .85rem; color: var(--ct); margin-bottom: 8px; }
-  .card h3 { font: 700 1.3rem/1.25 var(--head); letter-spacing: -.01em; margin: 0 0 10px; }
-  .card p { margin: 0 0 14px; color: #CBD2EA; }
-  .tech { display: flex; flex-wrap: wrap; gap: 6px; margin: 0 0 14px; padding: 0; list-style: none; }
-  .tech li { font-size: .82rem; font-weight: 600; padding: 3px 10px; border-radius: 8px; color: var(--ct); background: color-mix(in srgb, var(--c) 16%, var(--panel)); }
-  details { border-top: 1px solid var(--line); padding-top: 12px; }
-  summary { cursor: pointer; font-weight: 700; font-size: .95rem; color: var(--ct); list-style: none; display: flex; justify-content: space-between; }
-  summary::-webkit-details-marker { display: none; }
-  summary::after { content: "+"; font-size: 1.2rem; line-height: 1; }
-  details[open] summary::after { content: "−"; }
-  details p { margin: 12px 0 0; font-size: .98rem; color: var(--muted); }
-  details p b { color: var(--ink); }
-  .repo { display: inline-block; margin-top: 14px; font-weight: 700; font-size: .95rem; color: var(--ct); }
+  .card header { background: var(--c); color: var(--ink); padding: 16px 22px 18px; }
+  .cat { font-weight: 700; font-size: .85rem; display: block; margin-bottom: 2px; }
+  .card h3 { font: 800 1.3rem/1.25 var(--head); letter-spacing: -.01em; margin: 0; }
+  .body { padding: 18px 22px 20px; display: flex; flex-direction: column; flex: 1; }
+  .body p { margin: 0 0 16px; }
+  .tech { display: flex; flex-wrap: wrap; gap: 6px; margin: 0 0 16px; padding: 0; list-style: none; }
+  .tech li { font-size: .82rem; font-weight: 700; padding: 3px 11px; border-radius: 999px; color: var(--ink); background: color-mix(in srgb, var(--c) 55%, #fff); }
+  .repo { margin-top: auto; font-weight: 700; font-size: .95rem; text-decoration-thickness: 2px; text-decoration-color: var(--c); text-underline-offset: 4px; }
 
-  .k-ai   { --c: var(--violet); --ct: var(--violet-t); }
-  .k-sci  { --c: var(--amber);  --ct: var(--amber-t); }
-  .k-app  { --c: var(--coral);  --ct: var(--coral-t); }
-  .k-hw   { --c: var(--cyan);   --ct: var(--cyan-t); }
-  .k-ship { --c: var(--mint);   --ct: var(--mint-t); }
-
-  footer { margin-top: 72px; border-top: 1px solid var(--line); padding: 36px 0 52px; color: var(--muted); }
-  footer a { color: var(--amber-t); font-weight: 700; }
+  footer { margin-top: 72px; background: var(--ink); color: #fff; padding: 32px 0 44px; }
+  footer a { color: var(--amber); font-weight: 700; }
 </style>
 </head>
 <body>
@@ -134,19 +117,18 @@
 </nav>
 
 <header class="hero" id="top">
-  <div class="glow g1"></div><div class="glow g2"></div><div class="glow g3"></div>
   <div class="wrap">
     <p class="hello">Hi, I'm</p>
     <h1>Shahraz Hussain Siyam</h1>
     <p class="tag">CSE student at BUET. I build AI systems, GPU code and web services, and I test them on real data until they hold up.</p>
     <div class="btns">
-      <a class="btn main" href="#projects">See my projects</a>
+      <a class="btn main" href="#projects">See projects</a>
       <a class="btn alt" href="https://github.com/Morningstaaar36">GitHub profile</a>
     </div>
     <ul class="chips" aria-label="Main tools">
-      <li class="c-y">CUDA</li><li class="c-y">C++</li><li class="c-v">LLMs</li><li class="c-v">PyTorch</li>
-      <li class="c-c">Java Spring Boot</li><li class="c-c">Kafka</li><li class="c-m">Docker</li>
-      <li class="c-a">Python</li><li class="c-v">Multimodal AI</li>
+      <li class="k-hw">CUDA</li><li class="k-hw">C++</li><li class="k-ai">LLMs</li><li class="k-ai">PyTorch</li>
+      <li class="k-app">Java Spring Boot</li><li class="k-app">Kafka</li><li class="k-ship">Docker</li>
+      <li class="k-sci">Python</li><li class="k-ml">Multimodal AI</li>
     </ul>
   </div>
 </header>
@@ -156,29 +138,29 @@
   <div class="hl">
     <div class="k-app"><b>Top 10</b><span>Therap JavaFest, with the TeamSync platform</span></div>
     <div class="k-ship"><b>Live on Azure</b><span>GridWise, an AI energy scheduler anyone can call</span></div>
-    <div class="k-ai"><b>&lt; 0.1 ms</b><span>to search 5,183 papers with my own CUDA code</span></div>
+    <div class="k-ai"><b>&lt; 0.1 ms</b><span>to search 5,183 research papers with custom CUDA code</span></div>
     <div class="k-sci"><b>Real quantum run</b><span>molecule energies computed on IBM hardware</span></div>
   </div>
 
   <section id="skills">
-    <h2>What I work with</h2>
-    <p class="lead">Each tool in one plain sentence, and where I used it.</p>
+    <h2>Skills</h2>
+    <p class="lead">Each tool explained in one plain sentence, with where it is used.</p>
 
     <div class="sg k-hw">
       <h3>GPUs and low-level code</h3>
       <div class="sk">
-        <div><b>CUDA</b><span>Runs thousands of calculations at once on an NVIDIA GPU. I wrote a search engine in it that ran up to 44× faster after a rewrite.</span></div>
-        <div><b>C++</b><span>Fast, close to the hardware. Used for the GPU search engine and a MIPS assembler.</span></div>
-        <div><b>C for microcontrollers</b><span>Programs that run directly on a chip. Drives the motors and sensors of my robot car.</span></div>
-        <div><b>Assembly and digital logic</b><span>8086 programs, and a MIPS processor built from logic gates.</span></div>
+        <div><b>CUDA</b><span>Runs thousands of calculations at once on an NVIDIA GPU. Used for a paper-search engine that answers in under 0.1 ms.</span></div>
+        <div><b>C++</b><span>Fast and close to the hardware. Used for the GPU search engine and a MIPS assembler.</span></div>
+        <div><b>C for microcontrollers</b><span>Programs that run directly on a chip. Drives the motors and sensors of a robot car.</span></div>
+        <div><b>Assembly and digital logic</b><span>The instructions a processor really runs. 8086 programs, and a MIPS processor built from logic gates.</span></div>
       </div>
     </div>
 
     <div class="sg k-ai">
       <h3>AI and machine learning</h3>
       <div class="sk">
-        <div><b>LLMs</b><span>Programs like Llama that read and write text. I use them to read notes and judge claims, and I check their output.</span></div>
-        <div><b>AI agents (LangChain)</b><span>An LLM that picks which tool to call. NagorMind's agent has 13 tools.</span></div>
+        <div><b>LLMs</b><span>Programs like Llama that read and write text. Used to read notes, judge claims and answer questions, with the output checked.</span></div>
+        <div><b>AI agents (LangChain)</b><span>An LLM that picks which tool to call, then answers from the results. NagorMind's agent has 13 tools.</span></div>
         <div><b>RAG</b><span>Find the right documents first, then answer from them. Used in the claim checker and TeamSync's assistant.</span></div>
         <div><b>PyTorch and PyTorch Geometric</b><span>Libraries for training neural networks, including graph networks. Used for molecules and fair graph models.</span></div>
         <div><b>Multimodal learning</b><span>One model using two kinds of input. SACA-Tox reads a molecule as a graph and as text.</span></div>
@@ -190,7 +172,7 @@
       <h3>Backend and data</h3>
       <div class="sk">
         <div><b>Java Spring Boot</b><span>A Java framework for web services. TeamSync and the moderation platform are built from small Spring Boot services.</span></div>
-        <div><b>Microservices</b><span>One big app split into small services that each do one job. I designed TeamSync's split.</span></div>
+        <div><b>Microservices</b><span>One big app split into small services that each do one job. The basis of TeamSync.</span></div>
         <div><b>Kafka</b><span>A message pipe so services can say "this happened" without waiting. Used in TeamSync with Schema Registry.</span></div>
         <div><b>FastAPI</b><span>A quick way to build Python web APIs. Runs GridWise and TeamSync's AI backend.</span></div>
         <div><b>Django and PostgreSQL</b><span>A Python web framework and a database that does the heavy lifting. Power UniWorld Gateway.</span></div>
@@ -201,9 +183,9 @@
     <div class="sg k-ship">
       <h3>Shipping and testing</h3>
       <div class="sk">
-        <div><b>Docker</b><span>Packs an app and everything it needs into one container that runs anywhere. GridWise ships as an image, and I set up TeamSync's Docker network.</span></div>
+        <div><b>Docker</b><span>Packs an app and everything it needs into one container that runs anywhere. Used for GridWise and TeamSync.</span></div>
         <div><b>Azure Container Apps</b><span>Runs a container in the cloud with a public address. GridWise is live there.</span></div>
-        <div><b>CI/CD</b><span>Tests and ships code automatically on every push. Set up for TeamSync.</span></div>
+        <div><b>CI/CD</b><span>Tests and ships code automatically on every push. Used in TeamSync.</span></div>
         <div><b>Testing and evaluation</b><span>9 CUDA test suites for the GPU search, and a scoring harness for GridWise.</span></div>
       </div>
     </div>
@@ -220,7 +202,7 @@
 
   <section id="projects">
     <h2>Projects</h2>
-    <p class="lead">Short version on each card. Open one for the details and what I built.</p>
+    <p class="lead">What each one does, in plain words.</p>
 
     <div class="filters" role="group" aria-label="Filter projects">
       <button type="button" data-f="all" aria-pressed="true">All</button>
@@ -232,139 +214,122 @@
 
     <div class="grid" id="grid">
 
-      <article class="card k-ai" data-cat="ai"><div class="bar"></div><div class="in">
-        <span class="cat">AI</span>
-        <h3>Science claim checker</h3>
-        <p>Type a science claim. It reads research papers and answers supported, contradicted or not enough info, with quotes it verifies.</p>
-        <ul class="tech"><li>CUDA</li><li>C++17</li><li>Llama 3.2</li><li>RAG</li></ul>
-        <details><summary>Details</summary>
-          <p>Finding the right papers among 5,183 abstracts takes under a tenth of a millisecond, because the search runs on the GPU. Every quote in the explanation is checked automatically against the paper it came from.</p></details>
-        <a class="repo" href="https://github.com/Morningstaaar36/Zero-Copy-GPU-Vector-Search-Re-Ranking-Engine">View code</a>
-      </div></article>
+      <article class="card k-ai" data-cat="ai">
+        <header><span class="cat">AI</span><h3>Science claim checker</h3></header>
+        <div class="body">
+          <p>Type a science claim, like "bariatric surgery helps mental health". The program finds the most relevant research papers, an AI reads them, and it answers supported, contradicted or not enough info. It explains why with quotes, and every quote is automatically checked against the paper. Searching 5,183 abstracts takes under a tenth of a millisecond because the search runs on the GPU.</p>
+          <ul class="tech"><li>CUDA</li><li>C++17</li><li>Llama 3.2</li><li>RAG</li></ul>
+          <a class="repo" href="https://github.com/Morningstaaar36/Zero-Copy-GPU-Vector-Search-Re-Ranking-Engine">View code</a>
+        </div>
+      </article>
 
-      <article class="card k-ai" data-cat="ai"><div class="bar"></div><div class="in">
-        <span class="cat">AI</span>
-        <h3>GridWise</h3>
-        <p>Reads an operator's free-text notes and builds the cheapest power schedule for a campus's solar panels, battery and grid. Live on Azure.</p>
-        <ul class="tech"><li>Python</li><li>FastAPI</li><li>LLMs</li><li>Docker</li><li>Azure</li></ul>
-        <details><summary>Details</summary>
-          <p>A note like "clean the solar panels from noon to 2 PM" becomes a hard rule for the plan, while unrelated notes are ignored. It double-checks its own plan before replying. Built for the BUP CSE Fest 2026 preliminary.</p>
-          <p><b>What I built:</b> the AI part, the web service, the scoring tests and the deployment.</p></details>
-        <a class="repo" href="https://github.com/Morningstaaar36/gridwise-llm-energy-optimizer">View code</a>
-      </div></article>
+      <article class="card k-ai" data-cat="ai">
+        <header><span class="cat">AI</span><h3>GridWise</h3></header>
+        <div class="body">
+          <p>A campus has solar panels, a battery and the power grid. The operator leaves notes like "clean the solar panels from noon to 2 PM". GridWise works out which notes change the plan, builds the cheapest power schedule for the day, and double-checks it. It runs live on Azure.</p>
+          <ul class="tech"><li>Python</li><li>FastAPI</li><li>LLMs</li><li>Docker</li><li>Azure</li></ul>
+          <a class="repo" href="https://github.com/Morningstaaar36/gridwise-llm-energy-optimizer">View code</a>
+        </div>
+      </article>
 
-      <article class="card k-ai" data-cat="ai"><div class="bar"></div><div class="in">
-        <span class="cat">AI</span>
-        <h3>NagorMind</h3>
-        <p>Ask about a Dhaka neighbourhood and an AI agent gathers the evidence with 13 tools and draws it on a map.</p>
-        <ul class="tech"><li>Node.js</li><li>LangChain</li><li>Llama 3.3 70B</li><li>WebSockets</li></ul>
-        <details><summary>Details</summary>
-          <p>The tools cover maps, air quality, weather, planning rules and public spending. It can check whether money spent on a drain, clinic or road shows up in real life. Built at the Impact Dhaka Hackathon.</p>
-          <p><b>What I built:</b> the backend, the agent, the 13 tools and the data layer.</p></details>
-        <a class="repo" href="https://github.com/Morningstaaar36/ImpactAI">View code</a>
-      </div></article>
+      <article class="card k-ai" data-cat="ai">
+        <header><span class="cat">AI</span><h3>NagorMind</h3></header>
+        <div class="body">
+          <p>Ask about a Dhaka neighbourhood, like how well its hospitals cover the people nearby. An AI assistant uses 13 tools (maps, air quality, weather, planning rules, public spending) to collect facts and draws them on a map. It can also check whether money spent on a drain, clinic or road shows up in real life.</p>
+          <ul class="tech"><li>Node.js</li><li>LangChain</li><li>Llama 3.3 70B</li><li>WebSockets</li></ul>
+          <a class="repo" href="https://github.com/Morningstaaar36/ImpactAI">View code</a>
+        </div>
+      </article>
 
-      <article class="card k-sci" data-cat="sci"><div class="bar"></div><div class="in">
-        <span class="cat">Science</span>
-        <h3>Molecules on a quantum computer</h3>
-        <p>Estimates the energy of molecules with a quantum method, and checks every answer against the exact one.</p>
-        <ul class="tech"><li>Python</li><li>VQE</li><li>CUDA-Q</li><li>IBM Quantum</li></ul>
-        <details><summary>Details</summary>
-          <p>A molecule's energy changes as its atoms stretch or bend. We did eleven molecules, rebuilt whole curves from a few points, and ran one on a real IBM quantum computer. CSE 402 course project.</p>
-          <p><b>What I built:</b> BeH₂ and O₂, including a 110-point map of energy against bond length and angle, the curve fitting, and the IBM run.</p></details>
-        <a class="repo" href="https://github.com/Morningstaaar36/CSE-402-Numerical-Analysis-Simulation-and-Modeling-Project">View code</a>
-      </div></article>
+      <article class="card k-sci" data-cat="sci">
+        <header><span class="cat">Science</span><h3>Molecules on a quantum computer</h3></header>
+        <div class="body">
+          <p>A molecule's energy changes as its atoms stretch or bend. This project estimates that energy for eleven molecules with a quantum method, checks every answer against the exact one, and rebuilds whole curves from a few points. One run used a real IBM quantum computer.</p>
+          <ul class="tech"><li>Python</li><li>VQE</li><li>CUDA-Q</li><li>IBM Quantum</li></ul>
+          <a class="repo" href="https://github.com/Morningstaaar36/CSE-402-Numerical-Analysis-Simulation-and-Modeling-Project">View code</a>
+        </div>
+      </article>
 
-      <article class="card k-sci" data-cat="sci"><div class="bar"></div><div class="in">
-        <span class="cat">Science</span>
-        <h3>SACA-Tox</h3>
-        <p>Predicts whether a molecule is toxic by combining its atom graph with its text description.</p>
-        <ul class="tech"><li>PyTorch</li><li>Graph neural network</li><li>ChemBERTa</li><li>Multimodal</li></ul>
-        <details><summary>Details</summary>
-          <p>One molecule, two views: a network of atoms and bonds, and a line of text. A gated block fuses them. On six standard toxicity tests the AUROC score, where 1.0 is perfect, ranges from 0.84 to 0.99.</p></details>
-        <a class="repo" href="https://github.com/Morningstaaar36/Toxicity_Prediction">View code</a>
-      </div></article>
+      <article class="card k-sci" data-cat="sci">
+        <header><span class="cat">Science</span><h3>SACA-Tox</h3></header>
+        <div class="body">
+          <p>Is this molecule toxic? The model looks at it two ways, as a network of atoms and bonds and as a line of text that describes it, and combines both views to decide. On six standard toxicity tests its AUROC score, where 1.0 is perfect, ranges from 0.84 to 0.99.</p>
+          <ul class="tech"><li>PyTorch</li><li>Graph neural network</li><li>ChemBERTa</li><li>Multimodal</li></ul>
+          <a class="repo" href="https://github.com/Morningstaaar36/Toxicity_Prediction">View code</a>
+        </div>
+      </article>
 
-      <article class="card k-sci" data-cat="sci"><div class="bar"></div><div class="in">
-        <span class="cat">Science</span>
-        <h3>SFUGAG</h3>
-        <p>Moves a graph model to a new network of data fairly, with no access to the old data and no labels.</p>
-        <ul class="tech"><li>PyTorch</li><li>PyTorch Geometric</li><li>GNN</li></ul>
-        <details><summary>Details</summary>
-          <p>A model trained on one network often turns unfair on a new one. This research code adapts it while keeping it fair. Under review at AISTATS.</p></details>
-        <a class="repo" href="https://github.com/Morningstaaar36/SFUGAG">View code</a>
-      </div></article>
+      <article class="card k-sci" data-cat="sci">
+        <header><span class="cat">Science</span><h3>SFUGAG</h3></header>
+        <div class="body">
+          <p>A model trained on one network of data often turns unfair when moved to a new one. This research code adapts the model to the new network without seeing the original data and without any labels, while keeping it fair. Under review at AISTATS.</p>
+          <ul class="tech"><li>PyTorch</li><li>PyTorch Geometric</li><li>GNN</li></ul>
+          <a class="repo" href="https://github.com/Morningstaaar36/SFUGAG">View code</a>
+        </div>
+      </article>
 
-      <article class="card k-sci" data-cat="sci"><div class="bar"></div><div class="in">
-        <span class="cat">Science</span>
-        <h3>CanonNet</h3>
-        <p>Turns tilted 3D scans upright using geometry alone, with no training.</p>
-        <ul class="tech"><li>Python</li><li>Point clouds</li><li>S3DIS</li></ul>
-        <details><summary>Details</summary>
-          <p>It handles 21 kinds of objects.</p>
-          <p><b>What I built:</b> I added 208 indoor rooms of S3DIS scan data so it can be tried on whole rooms, not only single objects.</p></details>
-        <a class="repo" href="https://github.com/Morningstaaar36/geo_canon">View code</a>
-      </div></article>
+      <article class="card k-sci" data-cat="sci">
+        <header><span class="cat">Science</span><h3>CanonNet</h3></header>
+        <div class="body">
+          <p>3D scans come out tilted in random directions. CanonNet turns an object upright using only geometry, with no training. It handles 21 kinds of objects and works on indoor room scans too.</p>
+          <ul class="tech"><li>Python</li><li>Point clouds</li><li>S3DIS</li></ul>
+          <a class="repo" href="https://github.com/Morningstaaar36/geo_canon">View code</a>
+        </div>
+      </article>
 
-      <article class="card k-app" data-cat="app"><div class="bar"></div><div class="in">
-        <span class="cat">App</span>
-        <h3>TeamSync</h3>
-        <p>Team chat, tasks and projects as many small services. Top 10 at Therap JavaFest.</p>
-        <ul class="tech"><li>Spring Boot</li><li>Kafka</li><li>Docker</li><li>LangChain</li><li>Qdrant</li></ul>
-        <details><summary>Details</summary>
-          <p><b>What I built:</b> the design of how the services fit together and talk to each other, the Docker deployment and CI/CD, an AI assistant that answers from the team's own documents, and the live notifications.</p></details>
-        <a class="repo" href="https://github.com/Morningstaaar36/teamsync">View code</a>
-      </div></article>
+      <article class="card k-app" data-cat="app">
+        <header><span class="cat">App</span><h3>TeamSync</h3></header>
+        <div class="body">
+          <p>Team chat, tasks and projects in one app, built as many small services that pass events through Kafka. It has live notifications and an AI assistant that answers from the team's own documents. Top 10 at Therap JavaFest.</p>
+          <ul class="tech"><li>Spring Boot</li><li>Kafka</li><li>Docker</li><li>LangChain</li><li>Qdrant</li></ul>
+          <a class="repo" href="https://github.com/Morningstaaar36/teamsync">View code</a>
+        </div>
+      </article>
 
-      <article class="card k-app" data-cat="app"><div class="bar"></div><div class="in">
-        <span class="cat">App</span>
-        <h3>Moderation platform</h3>
-        <p>A Reddit-style community site with moderator tools, split into separate services.</p>
-        <ul class="tech"><li>Spring Boot</li><li>Microservices</li><li>React</li></ul>
-        <details><summary>Details</summary>
-          <p><b>What I built:</b> lock, pin, remove and approve for posts, and bans that apply across the whole site. I also fixed a bug that let any logged-in user edit or delete any community.</p></details>
-        <a class="repo" href="https://github.com/Morningstaaar36/Reddit-Clone">View code</a>
-      </div></article>
+      <article class="card k-app" data-cat="app">
+        <header><span class="cat">App</span><h3>Moderation platform</h3></header>
+        <div class="body">
+          <p>A Reddit-style community site with tools for moderators: lock, pin, remove or approve posts, ban users from a community, and set auto-moderation rules. It is split into separate services that work together.</p>
+          <ul class="tech"><li>Spring Boot</li><li>Microservices</li><li>React</li></ul>
+          <a class="repo" href="https://github.com/Morningstaaar36/Reddit-Clone">View code</a>
+        </div>
+      </article>
 
-      <article class="card k-app" data-cat="app"><div class="bar"></div><div class="in">
-        <span class="cat">App</span>
-        <h3>SynapseSupply</h3>
-        <p>Predicts each shop's demand for the next 7 days and what the warehouse can supply, for Eid and monsoon swings.</p>
-        <ul class="tech"><li>Python</li><li>Neural networks</li><li>PostgreSQL</li></ul>
-        <details><summary>Details</summary>
-          <p>Built at the BUP Hackathon. The data is made up, so the scores show the method works, not how it would do on real sales.</p></details>
-        <a class="repo" href="https://github.com/Morningstaaar36/SynapseSupply">View code</a>
-      </div></article>
+      <article class="card k-app" data-cat="app">
+        <header><span class="cat">App</span><h3>SynapseSupply</h3></header>
+        <div class="body">
+          <p>Shops in Bangladesh run out of stock before Eid and sit on too much in the monsoon. This predicts how much each shop will sell in the next 7 days and how much the central warehouse can send. The data is made up, so the scores show the method works, not how it would do on real sales.</p>
+          <ul class="tech"><li>Python</li><li>Neural networks</li><li>PostgreSQL</li></ul>
+          <a class="repo" href="https://github.com/Morningstaaar36/SynapseSupply">View code</a>
+        </div>
+      </article>
 
-      <article class="card k-app" data-cat="app"><div class="bar"></div><div class="in">
-        <span class="cat">App</span>
-        <h3>UniWorld Gateway</h3>
-        <p>One application for many universities abroad. It saves progress and points out what's missing.</p>
-        <ul class="tech"><li>Django</li><li>PostgreSQL</li></ul>
-        <details><summary>Details</summary>
-          <p>Students fill in a single application in stages, then attach it to as many programmes as they like instead of retyping the same details on every website.</p></details>
-        <a class="repo" href="https://github.com/Morningstaaar36/UniWorld-Gateway">View code</a>
-      </div></article>
+      <article class="card k-app" data-cat="app">
+        <header><span class="cat">App</span><h3>UniWorld Gateway</h3></header>
+        <div class="body">
+          <p>Applying to universities abroad means typing the same details into many websites. UniWorld keeps one application per student, saves progress, points out what is missing, and lets them apply to as many programmes as they like.</p>
+          <ul class="tech"><li>Django</li><li>PostgreSQL</li></ul>
+          <a class="repo" href="https://github.com/Morningstaaar36/UniWorld-Gateway">View code</a>
+        </div>
+      </article>
 
-      <article class="card k-hw" data-cat="hw"><div class="bar"></div><div class="in">
-        <span class="cat">Hardware</span>
-        <h3>Voice-controlled robot car</h3>
-        <p>A phone-controlled car with voice commands that steers around obstacles by itself.</p>
-        <ul class="tech"><li>C</li><li>ATmega32</li><li>Bluetooth</li><li>Proteus</li></ul>
-        <details><summary>Details</summary>
-          <p>Two motors, distance sensors and a Bluetooth module. Drive it with buttons or your voice.</p></details>
-        <a class="repo" href="https://github.com/Morningstaaar36/CSE_316">View code</a>
-      </div></article>
+      <article class="card k-hw" data-cat="hw">
+        <header><span class="cat">Hardware</span><h3>Voice-controlled robot car</h3></header>
+        <div class="body">
+          <p>A small car you drive from your phone over Bluetooth, with buttons or your voice. Distance sensors let it steer around obstacles by itself.</p>
+          <ul class="tech"><li>C</li><li>ATmega32</li><li>Bluetooth</li><li>Proteus</li></ul>
+          <a class="repo" href="https://github.com/Morningstaaar36/CSE_316">View code</a>
+        </div>
+      </article>
 
-      <article class="card k-hw" data-cat="hw"><div class="bar"></div><div class="in">
-        <span class="cat">Hardware</span>
-        <h3>A processor from logic gates</h3>
-        <p>A small CPU built in a simulator, plus a C++ assembler that writes its machine code.</p>
-        <ul class="tech"><li>Logisim</li><li>C++</li><li>MIPS assembly</li></ul>
-        <details><summary>Details</summary>
-          <p>It runs 16 instructions. The assembler turns assembly text into the 1s and 0s loaded into the processor's memory.</p></details>
-        <a class="repo" href="https://github.com/Morningstaaar36/CSE_210">View code</a>
-      </div></article>
+      <article class="card k-hw" data-cat="hw">
+        <header><span class="cat">Hardware</span><h3>A processor from logic gates</h3></header>
+        <div class="body">
+          <p>A small computer processor built out of logic gates in a simulator, plus a C++ program that turns assembly code into the 1s and 0s it runs. It handles 16 instructions.</p>
+          <ul class="tech"><li>Logisim</li><li>C++</li><li>MIPS assembly</li></ul>
+          <a class="repo" href="https://github.com/Morningstaaar36/CSE_210">View code</a>
+        </div>
+      </article>
 
     </div>
   </section>
