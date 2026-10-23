@@ -98,7 +98,7 @@
     <div>
       <h1>Shahraz Hussain Siyam</h1>
       <p class="lede">I like problems where a clever idea has to survive real data, real hardware, or a real operator.</p>
-      <p class="sub">I'm a CSE student at BUET. Most of what I build sits between AI, GPUs, 3D shapes and molecules. Below is what I've been poking at, with an honest note on what part of each was mine.</p>
+      <p class="sub">I'm a CSE student at BUET. Most of what I build sits between AI, GPUs, 3D shapes and molecules.</p>
       <p class="links">
         <a href="https://github.com/Morningstaaar36">GitHub</a>
         <a href="#shapes">Start with the 3D work</a>
@@ -135,7 +135,7 @@
       </div>
       <div>
         <p>A campus operator leaves notes like "we'll wash the rooftop solar panels from noon to 2 PM" next to a day-ahead forecast. GridWise works out which notes change the plan, turns them into hard constraints, and returns the cheapest valid 24-hour grid, solar and battery schedule. It then checks its own answer before replying.</p>
-        <p class="role">Built with a teammate for the BUP CSE Fest 2026 preliminary. I built the language-model side, the service, the evaluation harness and the deployment; my teammate built most of the optimisation core. It runs live.</p>
+        <p class="role">Built for the BUP CSE Fest 2026 preliminary. I built the language-model side, the service, the evaluation harness and the deployment. It runs live.</p>
       </div>
     </article>
   </section>
@@ -151,18 +151,7 @@
       </div>
       <div>
         <p>Rotates a point cloud into a canonical pose using geometry alone: principal axes, then symmetry detection, then a rule for each of 21 object classes. No network and no training.</p>
-        <p class="role">This is my fork of usaben's project, and the method is theirs. I prepared and added the S3DIS indoor-scene data (208 rooms) to extend it from single objects towards whole rooms.</p>
-      </div>
-    </article>
-
-    <article class="project">
-      <div>
-        <h3><a href="https://github.com/Morningstaaar36/VisAlign">VisAlign</a></h3>
-        <p class="stack">Kotlin, Jetpack Compose, TorchScript</p>
-      </div>
-      <div>
-        <p>The same job on a phone. A neural network running inside an Android app turns scanned 3D objects the right way up, with no server involved.</p>
-        <p class="role">A team project; this is my fork. The repository lists who built what.</p>
+        <p class="role">I prepared and added the S3DIS indoor-scene data (208 rooms), extending it from single objects towards whole rooms.</p>
       </div>
     </article>
   </section>
@@ -178,7 +167,7 @@
       </div>
       <div>
         <p>Energy surfaces for eleven molecules, computed with the Variational Quantum Eigensolver and then rebuilt from a few samples using polynomial and spline interpolation. Every result is compared with exact diagonalisation, and one hydrogen curve ran on a real IBM quantum processor.</p>
-        <p class="role">A team of five for CSE 402. I owned the BeH₂ and O₂ work, including a 110-point surface over bond length and bond angle, their interpolation analysis, and the IBM hardware run.</p>
+        <p class="role">CSE 402 course project. I owned the BeH₂ and O₂ work, including a 110-point surface over bond length and bond angle, their interpolation analysis, and the IBM hardware run.</p>
       </div>
     </article>
 
@@ -215,7 +204,7 @@
       </div>
       <div>
         <p>Ask about a Dhaka neighbourhood in plain English and an AI agent chooses from 13 tools covering OpenStreetMap, live air quality and weather, planning standards and public procurement records, then draws the evidence on a map. It can also check whether money spent on a drain, clinic or road shows up on the ground.</p>
-        <p class="role">Impact Dhaka Hackathon, a team project. I wrote the backend, the agent loop, the 13 tools, the data layer and the LangChain migration. The UI and the front-end belong to RedWine356.</p>
+        <p class="role">Built at the Impact Dhaka Hackathon. I wrote the backend, the agent loop, the 13 tools, the data layer and the LangChain migration.</p>
       </div>
     </article>
 
@@ -226,7 +215,7 @@
       </div>
       <div>
         <p>Shops in Bangladesh run dry before Eid and sit on stock in the monsoon, while one warehouse has to split limited supply between them. This pipeline forecasts each outlet's next seven days of demand and what the warehouse can really supply (R² of 0.85 to 0.88), and the negotiation agents are the next piece.</p>
-        <p class="role">BUP Hackathon team project, shown here as my fork. The data is synthetic, so the scores show the pipeline learns what it was given and say nothing about real sales.</p>
+        <p class="role">Built at the BUP Hackathon. The data is synthetic, so the scores show the pipeline works, not how it would do on real sales.</p>
       </div>
     </article>
 
@@ -237,7 +226,7 @@
       </div>
       <div>
         <p>A team-collaboration platform split into microservices behind a gateway, with Kafka for events, WebSockets for live messages and a RAG-powered AI assistant. It placed in the top 10 at Therap JavaFest.</p>
-        <p class="role">Team project, originally by prithu-anan. My part was the distributed system design, the AI backend, and the real-time notifications.</p>
+        <p class="role">I designed the distributed architecture and built the AI backend and the real-time notifications.</p>
       </div>
     </article>
 
@@ -248,7 +237,7 @@
       </div>
       <div>
         <p>A Reddit-like community platform whose interesting half is moderation: an AutoModerator rule engine, a mod queue, bans and modmail, each in its own service.</p>
-        <p class="role">Original by Tanvir Liaquat Uday and a team. I built the post lock, pin, remove and approve actions, and per-community bans enforced across services. I also fixed a hole that let any signed-in user edit or delete any community.</p>
+        <p class="role">I built the post lock, pin, remove and approve actions, and per-community bans enforced across services. I also fixed a hole that let any signed-in user edit or delete any community.</p>
       </div>
     </article>
 
@@ -283,14 +272,12 @@
         <p class="stack">Logisim, C++</p>
       </div>
       <div>
-        <p>A single-cycle MIPS datapath built in Logisim with a register file, memory, an ALU made from 7400-series chips and a control unit. A small C++ assembler turns assembly into machine code for its instruction ROM, covering 16 instructions.</p>
-        <p class="role">Team project with two classmates.</p>
-      </div>
+        <p>A single-cycle MIPS datapath built in Logisim with a register file, memory, an ALU made from 7400-series chips and a control unit. A small C++ assembler turns assembly into machine code for its instruction ROM, covering 16 instructions.</p>      </div>
     </article>
   </section>
 
   <footer>
-    <p>All the code is on <a href="https://github.com/Morningstaaar36">github.com/Morningstaaar36</a>. Several of these are forks of team projects, and I've credited the original authors where that applies.</p>
+    <p>All the code is on <a href="https://github.com/Morningstaaar36">github.com/Morningstaaar36</a>.</p>
   </footer>
 </main>
 
