@@ -35,13 +35,11 @@
 
   /* every section and project sits in its own box */
   section, .project { background: var(--box); border: 1px solid var(--box-line); border-radius: 12px; padding: 24px 26px; margin-bottom: 20px; }
-  section.bare { background: none; border: 0; padding: 0; margin: 0; display: grid; gap: 20px; grid-template-columns: repeat(auto-fill, minmax(min(100%, 440px), 1fr)); }
-  section.bare h2 { grid-column: 1 / -1; }
-  .top { display: grid; gap: 20px; margin-bottom: 8px; align-items: start; }
-  .top > section { margin-bottom: 0; }
-  @media (min-width: 900px) { .top { grid-template-columns: 1fr 2fr; } dl { grid-template-columns: 1fr 1fr; gap: 20px 32px; } dl > div dt { margin-top: 0; } }
-  h2 { font-size: 1.05rem; font-weight: 600; color: var(--white); margin: 0 0 14px; }
+  h2 { font-size: 1.05rem; font-weight: 600; color: var(--white); margin: 0 0 16px; }
+  section.bare { background: none; border: 0; padding: 0; margin: 0; display: flex; flex-direction: column; gap: 20px; }
   section.bare h2 { margin: 16px 0 0; font-size: 1.25rem; }
+  .top > section { margin-bottom: 20px; }
+  @media (min-width: 900px) { dl { grid-template-columns: repeat(3, 1fr); gap: 22px 32px; } dl > div dt { margin-top: 0; } ul.plain { columns: 2; column-gap: 40px; } }
   p { margin: 0 0 14px; }
 
   ul.plain { margin: 0; padding-left: 20px; }
@@ -53,18 +51,21 @@
   dt:first-child { margin-top: 0; }
   dd { margin: 2px 0 0; color: var(--body); }
 
-  .project { position: relative; display: flex; flex-direction: column; margin: 0; padding: 22px 26px 20px; transition: border-color .15s; }
+  .project { position: relative; display: grid; gap: 20px 40px; margin: 0; padding: 24px 28px; transition: border-color .15s; }
+  @media (min-width: 900px) { .project { grid-template-columns: 340px 1fr; } }
   .project:hover, .project:focus-within { border-color: var(--link); }
   .kicker { color: var(--tech); font-size: .85rem; font-weight: 500; margin: 0 0 4px; }
-  .project h3 { font-size: 1.2rem; line-height: 1.35; font-weight: 600; margin: 0 0 10px; }
+  .project h3 { font-size: 1.25rem; line-height: 1.35; font-weight: 600; margin: 0 0 14px; }
   .project h3 a { color: var(--white); text-decoration: none; }
   .project h3 a::after { content: ""; position: absolute; inset: 0; border-radius: 12px; }
   .project h3 a:focus-visible { outline: none; }
   .project p { margin: 0; }
-  .facts { display: flex; flex-wrap: wrap; gap: 8px; margin: 14px 0 14px; padding: 0; list-style: none; }
+  .facts { display: flex; flex-wrap: wrap; gap: 8px; margin: 0; padding: 0; list-style: none; }
   .facts li { font-size: .84rem; color: var(--white); background: #22222B; border: 1px solid var(--box-line); border-radius: 999px; padding: 3px 12px; }
-  .project .stack { color: var(--muted); font-size: .85rem; margin-top: auto; padding-top: 12px; border-top: 1px solid var(--box-line); }
-  .open { display: inline-block; margin-top: 10px; color: var(--link); font-weight: 600; font-size: .92rem; }
+  .project .stack { color: var(--muted); font-size: .85rem; margin-top: 16px; padding-top: 12px; border-top: 1px solid var(--box-line); }
+  .pr h4 { font-size: .9rem; font-weight: 600; color: var(--white); margin: 0 0 4px; }
+  .pr p { margin: 0 0 16px; }
+  .open { display: inline-block; color: var(--link); font-weight: 600; font-size: .92rem; }
   .project:hover .open { text-decoration: underline; text-underline-offset: 4px; }
   .sr { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
 
@@ -115,120 +116,211 @@
     <h2>Projects</h2>
 
     <article class="project">
-      <p class="kicker">Science claim checker</p>
-      <h3><a href="https://github.com/Morningstaaar36/Zero-Copy-GPU-Vector-Search-Re-Ranking-Engine"><span class="sr">Science claim checker on GitHub: </span>Can a GPU fact-check a science claim before you blink?</a></h3>
-      <p>Type a claim and it reads the relevant papers, then answers supported, contradicted or not enough info, with quotes it checks against the source.</p>
-      <ul class="facts"><li>5,183 papers searched in under 0.1 ms</li><li>Every quote verified</li></ul>
-      <p class="stack">CUDA, C++17, Llama 3.2, RAG</p>
-      <span class="open" aria-hidden="true">Open on GitHub</span>
+      <div class="pl">
+        <p class="kicker">Science claim checker</p>
+        <h3><a href="https://github.com/Morningstaaar36/Zero-Copy-GPU-Vector-Search-Re-Ranking-Engine"><span class="sr">Science claim checker on GitHub: </span>Can a GPU fact-check a science claim before you blink?</a></h3>
+        <ul class="facts"><li>5,183 papers searched in under 0.1 ms</li><li>Every quote verified</li></ul>
+        <p class="stack">CUDA, C++17, Llama 3.2, ONNX Runtime, RAG</p>
+      </div>
+      <div class="pr">
+        <h4>What it is</h4>
+        <p>You type a scientific claim, for example &quot;bariatric surgery has a positive impact on mental health&quot;. The program answers Supported, Contradicted or Not enough info, gives a confidence percentage, and explains its answer in plain English.</p>
+        <h4>How it works</h4>
+        <p>A small neural network turns the claim into 384 numbers that capture its meaning. Custom CUDA code, written from scratch, compares those numbers with 5,183 research abstracts on the GPU in under a tenth of a millisecond. A second model re-ranks the best candidates, Llama 3.2 reads them and gives the verdict, and every quote in the explanation is automatically checked against the paper it came from.</p>
+        <span class="open" aria-hidden="true">Open on GitHub</span>
+      </div>
     </article>
 
     <article class="project">
-      <p class="kicker">GridWise</p>
-      <h3><a href="https://github.com/Morningstaaar36/gridwise-llm-energy-optimizer"><span class="sr">GridWise on GitHub: </span>Can a plain-English note change tomorrow&#x27;s power plan?</a></h3>
-      <p>An operator writes &quot;clean the solar panels from noon to 2 PM&quot;. GridWise turns that into a rule and builds the cheapest schedule for solar, battery and grid.</p>
-      <ul class="facts"><li>Live on Azure</li><li>Checks its own schedule</li></ul>
-      <p class="stack">Python, FastAPI, LLMs, Docker, Azure</p>
-      <span class="open" aria-hidden="true">Open on GitHub</span>
+      <div class="pl">
+        <p class="kicker">GridWise</p>
+        <h3><a href="https://github.com/Morningstaaar36/gridwise-llm-energy-optimizer"><span class="sr">GridWise on GitHub: </span>Can a plain-English note change tomorrow&#x27;s power plan?</a></h3>
+        <ul class="facts"><li>Live on Azure</li><li>Checks its own schedule</li></ul>
+        <p class="stack">Python, FastAPI, LLMs, SciPy, Docker, Azure</p>
+      </div>
+      <div class="pr">
+        <h4>What it is</h4>
+        <p>A campus operator has a day-ahead forecast of demand, solar power and electricity prices, plus free-text notes like &quot;the rooftop solar panels will be washed from noon to 2 PM&quot;. Some notes change the plan and some, like a moved registration deadline, do not. GridWise works out which is which and returns the cheapest valid 24-hour schedule for grid, solar and battery.</p>
+        <h4>How it works</h4>
+        <p>A language model reads each note and turns it into one of six kinds of rule, such as reduced solar output, no battery charging in a time window, or a minimum battery reserve. A solver then finds the cheapest schedule that obeys every rule, and the service checks its own answer before replying. It runs in a Docker container on Azure and anyone can call it.</p>
+        <span class="open" aria-hidden="true">Open on GitHub</span>
+      </div>
     </article>
 
     <article class="project">
-      <p class="kicker">NagorMind</p>
-      <h3><a href="https://github.com/Morningstaaar36/ImpactAI"><span class="sr">NagorMind on GitHub: </span>Did the money spent on that drain actually build a drain?</a></h3>
-      <p>Ask about a Dhaka neighbourhood and an AI agent gathers evidence from maps, air quality, planning rules and public spending, then draws it on a map.</p>
-      <ul class="facts"><li>13 tools</li><li>Answers drawn on a map</li></ul>
-      <p class="stack">Node.js, LangChain, Llama 3.3 70B, WebSockets</p>
-      <span class="open" aria-hidden="true">Open on GitHub</span>
+      <div class="pl">
+        <p class="kicker">NagorMind</p>
+        <h3><a href="https://github.com/Morningstaaar36/ImpactAI"><span class="sr">NagorMind on GitHub: </span>Did the money spent on that drain actually build a drain?</a></h3>
+        <ul class="facts"><li>13 tools</li><li>Answers drawn on a map</li></ul>
+        <p class="stack">Node.js, LangChain, Llama 3.3 70B, WebSockets, Redis</p>
+      </div>
+      <div class="pr">
+        <h4>What it is</h4>
+        <p>Dhaka&#x27;s planning data is scattered across map layers, air-quality sensors and public procurement portals. NagorMind lets you ask in plain English, for example how well the hospitals cover a neighbourhood, and shows the answer on a map.</p>
+        <h4>How it works</h4>
+        <p>An AI agent decides which of its 13 tools to call and in what order. They cover OpenStreetMap, live air quality and weather, planning standards and procurement records. It streams its steps as it works, and it can check whether money spent on a drain, clinic or road shows up on the ground.</p>
+        <span class="open" aria-hidden="true">Open on GitHub</span>
+      </div>
     </article>
 
     <article class="project">
-      <p class="kicker">TeamSync</p>
-      <h3><a href="https://github.com/Morningstaaar36/teamsync"><span class="sr">TeamSync on GitHub: </span>How do you build a team app out of many small services that never wait on each other?</a></h3>
-      <p>Chat, tasks and projects run as separate services that pass events through Kafka, with live notifications and an AI assistant that answers from the team&#x27;s documents.</p>
-      <ul class="facts"><li>Top 10 at Therap JavaFest</li><li>Kafka events</li></ul>
-      <p class="stack">Spring Boot, Kafka, Docker, LangChain, Qdrant</p>
-      <span class="open" aria-hidden="true">Open on GitHub</span>
+      <div class="pl">
+        <p class="kicker">TeamSync</p>
+        <h3><a href="https://github.com/Morningstaaar36/teamsync"><span class="sr">TeamSync on GitHub: </span>How do you build a team app out of many small services that never wait on each other?</a></h3>
+        <ul class="facts"><li>Top 10 at Therap JavaFest</li><li>Kafka events</li></ul>
+        <p class="stack">Spring Boot, Kafka, Docker, FastAPI, LangChain, Qdrant</p>
+      </div>
+      <div class="pr">
+        <h4>What it is</h4>
+        <p>A team-collaboration platform with user accounts, projects, tasks, messaging, notifications and a feed. It placed in the top 10 at Therap JavaFest.</p>
+        <h4>How it works</h4>
+        <p>Each feature is its own Spring Boot service behind an API gateway, with JWT login that works across services and a separate database for each. Services announce events through Kafka with Schema Registry, and WebSockets deliver live messages and notifications. A Python FastAPI service uses LangChain and the Qdrant vector database to answer questions from the team&#x27;s own documents.</p>
+        <span class="open" aria-hidden="true">Open on GitHub</span>
+      </div>
     </article>
 
     <article class="project">
-      <p class="kicker">Molecules on a quantum computer</p>
-      <h3><a href="https://github.com/Morningstaaar36/CSE-402-Numerical-Analysis-Simulation-and-Modeling-Project"><span class="sr">Molecules on a quantum computer on GitHub: </span>Can a quantum computer get a molecule&#x27;s energy right?</a></h3>
-      <p>It estimates molecule energies with a quantum method, checks each one against the exact answer, and rebuilds full curves from a few points.</p>
-      <ul class="facts"><li>692 runs checked against exact answers</li><li>One run on real IBM hardware</li></ul>
-      <p class="stack">Python, VQE, CUDA-Q, IBM Quantum</p>
-      <span class="open" aria-hidden="true">Open on GitHub</span>
+      <div class="pl">
+        <p class="kicker">Molecules on a quantum computer</p>
+        <h3><a href="https://github.com/Morningstaaar36/CSE-402-Numerical-Analysis-Simulation-and-Modeling-Project"><span class="sr">Molecules on a quantum computer on GitHub: </span>Can a quantum computer get a molecule&#x27;s energy right?</a></h3>
+        <ul class="facts"><li>692 runs checked against exact answers</li><li>One run on real IBM hardware</li></ul>
+        <p class="stack">Python, VQE, CUDA-Q, IBM Quantum</p>
+      </div>
+      <div class="pr">
+        <h4>What it is</h4>
+        <p>A molecule&#x27;s energy changes as its atoms stretch, bend or twist, and chemists need those curves. This project computes them for eleven molecules, including hydrogen, water and ammonia, with the Variational Quantum Eigensolver.</p>
+        <h4>How it works</h4>
+        <p>Across 23 scans and 692 optimisations, every result is compared with the exact answer, and the quantum result never dropped below it, as theory requires. Full curves are then rebuilt from just a handful of points with polynomial and spline fitting, and one hydrogen curve was run on a real IBM quantum processor.</p>
+        <span class="open" aria-hidden="true">Open on GitHub</span>
+      </div>
     </article>
 
     <article class="project">
-      <p class="kicker">SACA-Tox</p>
-      <h3><a href="https://github.com/Morningstaaar36/Toxicity_Prediction"><span class="sr">SACA-Tox on GitHub: </span>Is this molecule toxic? Ask it from two angles.</a></h3>
-      <p>The model reads a molecule as a graph of atoms and as a line of text, and combines both views to decide.</p>
-      <ul class="facts"><li>AUROC 0.84 to 0.99 on six tests</li><li>Graph + text</li></ul>
-      <p class="stack">PyTorch, graph neural network, ChemBERTa</p>
-      <span class="open" aria-hidden="true">Open on GitHub</span>
+      <div class="pl">
+        <p class="kicker">SACA-Tox</p>
+        <h3><a href="https://github.com/Morningstaaar36/Toxicity_Prediction"><span class="sr">SACA-Tox on GitHub: </span>Is this molecule toxic? Ask it from two angles.</a></h3>
+        <ul class="facts"><li>AUROC 0.84 to 0.99 on six tests</li><li>Graph + text</li></ul>
+        <p class="stack">PyTorch, graph neural network, ChemBERTa</p>
+      </div>
+      <div class="pr">
+        <h4>What it is</h4>
+        <p>It predicts whether a molecule is toxic on six standard tests, including mutagenicity, heart toxicity, eye corrosion and biodegradability.</p>
+        <h4>How it works</h4>
+        <p>A graph neural network reads the molecule as atoms and bonds, a frozen ChemBERTa language model reads its text description (a SMILES string), and a gated fusion block combines the two views. On held-out data the AUROC score, where 1.0 is perfect, ranges from 0.84 to 0.99.</p>
+        <span class="open" aria-hidden="true">Open on GitHub</span>
+      </div>
     </article>
 
     <article class="project">
-      <p class="kicker">SFUGAG</p>
-      <h3><a href="https://github.com/Morningstaaar36/SFUGAG"><span class="sr">SFUGAG on GitHub: </span>Can a model stay fair on data it has no labels for?</a></h3>
-      <p>It adapts a graph model to a new network without the original data or any labels, while keeping its decisions fair.</p>
-      <ul class="facts"><li>No source data, no labels</li><li>Under review at AISTATS</li></ul>
-      <p class="stack">PyTorch, PyTorch Geometric</p>
-      <span class="open" aria-hidden="true">Open on GitHub</span>
+      <div class="pl">
+        <p class="kicker">SFUGAG</p>
+        <h3><a href="https://github.com/Morningstaaar36/SFUGAG"><span class="sr">SFUGAG on GitHub: </span>Can a model stay fair on data it has no labels for?</a></h3>
+        <ul class="facts"><li>No source data, no labels</li><li>Under review at AISTATS</li></ul>
+        <p class="stack">PyTorch, PyTorch Geometric</p>
+      </div>
+      <div class="pr">
+        <h4>What it is</h4>
+        <p>A graph model trained on one network often becomes unfair when it is moved to a new one. The usual fixes need the original training data or labels on the new network, and both are often unavailable.</p>
+        <h4>How it works</h4>
+        <p>SFUGAG adapts the model using only a frozen task encoder and a small sensitive-attribute head from the source. On the new network it reads only node features and connections. This is research code, under review at AISTATS.</p>
+        <span class="open" aria-hidden="true">Open on GitHub</span>
+      </div>
     </article>
 
     <article class="project">
-      <p class="kicker">CanonNet</p>
-      <h3><a href="https://github.com/Morningstaaar36/geo_canon"><span class="sr">CanonNet on GitHub: </span>Every 3D scan arrives tilted. Can geometry alone stand it upright?</a></h3>
-      <p>It finds an object&#x27;s natural upright pose from its shape, with no training.</p>
-      <ul class="facts"><li>No training</li><li>21 object types</li></ul>
-      <p class="stack">Python, point clouds</p>
-      <span class="open" aria-hidden="true">Open on GitHub</span>
+      <div class="pl">
+        <p class="kicker">CanonNet</p>
+        <h3><a href="https://github.com/Morningstaaar36/geo_canon"><span class="sr">CanonNet on GitHub: </span>Every 3D scan arrives tilted. Can geometry alone stand it upright?</a></h3>
+        <ul class="facts"><li>No training</li><li>21 object types</li></ul>
+        <p class="stack">Python, point clouds, S3DIS</p>
+      </div>
+      <div class="pr">
+        <h4>What it is</h4>
+        <p>3D scans come out at whatever angle the scanner was held, so two scans of the same chair cannot be compared directly. Most deep-learning pipelines just train on random rotations and hope for the best.</p>
+        <h4>How it works</h4>
+        <p>CanonNet finds a standard upright pose with a fixed recipe: principal axes, then symmetry detection, then a rule for each of 21 object classes. No network or training is involved, and an interactive browser demo is included.</p>
+        <span class="open" aria-hidden="true">Open on GitHub</span>
+      </div>
     </article>
 
     <article class="project">
-      <p class="kicker">Moderation platform</p>
-      <h3><a href="https://github.com/Morningstaaar36/Reddit-Clone"><span class="sr">Moderation platform on GitHub: </span>How does a community site enforce its rules across separate services?</a></h3>
-      <p>A Reddit-style site with moderator tools, built so posts, bans and rules each live in their own service.</p>
-      <ul class="facts"><li>Lock, pin, remove, ban</li><li>Auto-moderation rules</li></ul>
-      <p class="stack">Spring Boot, microservices, React</p>
-      <span class="open" aria-hidden="true">Open on GitHub</span>
+      <div class="pl">
+        <p class="kicker">Moderation platform</p>
+        <h3><a href="https://github.com/Morningstaaar36/Reddit-Clone"><span class="sr">Moderation platform on GitHub: </span>How does a community site enforce its rules across separate services?</a></h3>
+        <ul class="facts"><li>Lock, pin, remove, ban</li><li>Auto-moderation rules</li></ul>
+        <p class="stack">Spring Boot, microservices, React</p>
+      </div>
+      <div class="pr">
+        <h4>What it is</h4>
+        <p>A Reddit-style community site with communities, posts, threaded comments and voting, plus a full toolkit for moderators.</p>
+        <h4>How it works</h4>
+        <p>Moderators can lock, pin, remove or approve posts, ban users per community, write AutoModerator rules in YAML, and review a mod queue and mod log. Communities, content, moderation and messaging are separate Spring Boot services behind a React front end, and they coordinate over HTTP.</p>
+        <span class="open" aria-hidden="true">Open on GitHub</span>
+      </div>
     </article>
 
     <article class="project">
-      <p class="kicker">SynapseSupply</p>
-      <h3><a href="https://github.com/Morningstaaar36/SynapseSupply"><span class="sr">SynapseSupply on GitHub: </span>Why do shops run out before Eid and drown in stock in the monsoon?</a></h3>
-      <p>It predicts each shop&#x27;s demand for the next 7 days and what the warehouse can send.</p>
-      <ul class="facts"><li>7-day demand forecast</li><li>Made-up data, real method</li></ul>
-      <p class="stack">Python, neural networks, PostgreSQL</p>
-      <span class="open" aria-hidden="true">Open on GitHub</span>
+      <div class="pl">
+        <p class="kicker">SynapseSupply</p>
+        <h3><a href="https://github.com/Morningstaaar36/SynapseSupply"><span class="sr">SynapseSupply on GitHub: </span>Why do shops run out before Eid and drown in stock in the monsoon?</a></h3>
+        <ul class="facts"><li>7-day demand forecast</li><li>Made-up data, real method</li></ul>
+        <p class="stack">Python, neural networks, PostgreSQL</p>
+      </div>
+      <div class="pr">
+        <h4>What it is</h4>
+        <p>Shops in Bangladesh run out of stock during Eid and sit on too much in the monsoon, while one central warehouse has to split limited supply between them.</p>
+        <h4>How it works</h4>
+        <p>Two models forecast each shop&#x27;s demand for the next seven days and estimate what the warehouse can supply (R² of about 0.85 to 0.88 on test data), and a PostgreSQL schema records requests and decisions. The data is synthetic, so the scores show the method works rather than real-world accuracy. Negotiation agents are planned next.</p>
+        <span class="open" aria-hidden="true">Open on GitHub</span>
+      </div>
     </article>
 
     <article class="project">
-      <p class="kicker">UniWorld Gateway</p>
-      <h3><a href="https://github.com/Morningstaaar36/UniWorld-Gateway"><span class="sr">UniWorld Gateway on GitHub: </span>Applying to ten universities shouldn&#x27;t mean typing your details ten times.</a></h3>
-      <p>One application is saved step by step, shows what is still missing, and can be sent to as many programmes as you like.</p>
-      <ul class="facts"><li>One form, many programmes</li><li>Shows what&#x27;s missing</li></ul>
-      <p class="stack">Django, PostgreSQL</p>
-      <span class="open" aria-hidden="true">Open on GitHub</span>
+      <div class="pl">
+        <p class="kicker">UniWorld Gateway</p>
+        <h3><a href="https://github.com/Morningstaaar36/UniWorld-Gateway"><span class="sr">UniWorld Gateway on GitHub: </span>Applying to ten universities shouldn&#x27;t mean typing your details ten times.</a></h3>
+        <ul class="facts"><li>One form, many programmes</li><li>Shows what&#x27;s missing</li></ul>
+        <p class="stack">Django, PostgreSQL</p>
+      </div>
+      <div class="pr">
+        <h4>What it is</h4>
+        <p>Applying to several universities abroad usually means retyping the same transcripts, test scores and personal details into every portal.</p>
+        <h4>How it works</h4>
+        <p>A student keeps one application and fills it in section by section, from personal details to academic records and GRE, GMAT, IELTS or TOEFL scores. It remembers where they stopped, lists every incomplete section before submitting, stores documents like transcripts as PDFs, and lets them attach the application to as many programmes as they like.</p>
+        <span class="open" aria-hidden="true">Open on GitHub</span>
+      </div>
     </article>
 
     <article class="project">
-      <p class="kicker">Voice-controlled robot car</p>
-      <h3><a href="https://github.com/Morningstaaar36/CSE_316"><span class="sr">Voice-controlled robot car on GitHub: </span>Say &quot;left&quot; and a car turns. Then it dodges the wall on its own.</a></h3>
-      <p>A phone-controlled car with Bluetooth and voice commands, and distance sensors that steer it around obstacles.</p>
-      <ul class="facts"><li>Voice and Bluetooth control</li><li>Obstacle avoidance</li></ul>
-      <p class="stack">C, ATmega32, Bluetooth</p>
-      <span class="open" aria-hidden="true">Open on GitHub</span>
+      <div class="pl">
+        <p class="kicker">Voice-controlled robot car</p>
+        <h3><a href="https://github.com/Morningstaaar36/CSE_316"><span class="sr">Voice-controlled robot car on GitHub: </span>Say &quot;left&quot; and a car turns. Then it dodges the wall on its own.</a></h3>
+        <ul class="facts"><li>Voice and Bluetooth control</li><li>Obstacle avoidance</li></ul>
+        <p class="stack">C, ATmega32, Bluetooth, Proteus</p>
+      </div>
+      <div class="pr">
+        <h4>What it is</h4>
+        <p>A two-motor robot car that you drive from your phone, with on-screen buttons or voice commands.</p>
+        <h4>How it works</h4>
+        <p>An ATmega32 microcontroller runs the motors through an L298N driver and talks to the phone over an HC-05 Bluetooth module. Ultrasonic HC-SR04 distance sensors scan ahead so the car steers around obstacles by itself.</p>
+        <span class="open" aria-hidden="true">Open on GitHub</span>
+      </div>
     </article>
 
     <article class="project">
-      <p class="kicker">A processor from logic gates</p>
-      <h3><a href="https://github.com/Morningstaaar36/CSE_210"><span class="sr">A processor from logic gates on GitHub: </span>Can you build a computer out of nothing but logic gates?</a></h3>
-      <p>A small CPU built in a simulator, with a C++ assembler that turns assembly code into the 1s and 0s it runs.</p>
-      <ul class="facts"><li>16 instructions</li><li>Own assembler</li></ul>
-      <p class="stack">Logisim, C++, MIPS assembly</p>
-      <span class="open" aria-hidden="true">Open on GitHub</span>
+      <div class="pl">
+        <p class="kicker">A processor from logic gates</p>
+        <h3><a href="https://github.com/Morningstaaar36/CSE_210"><span class="sr">A processor from logic gates on GitHub: </span>Can you build a computer out of nothing but logic gates?</a></h3>
+        <ul class="facts"><li>16 instructions</li><li>Own assembler</li></ul>
+        <p class="stack">Logisim, C++, MIPS assembly</p>
+      </div>
+      <div class="pr">
+        <h4>What it is</h4>
+        <p>A single-cycle MIPS processor built from logic gates in the Logisim simulator, with a register file, instruction and data memory, an ALU and a control unit.</p>
+        <h4>How it works</h4>
+        <p>It runs 16 instructions, including add, subtract, load, store, branch and jump. A C++ assembler turns MIPS assembly into the machine code that is loaded into its instruction memory.</p>
+        <span class="open" aria-hidden="true">Open on GitHub</span>
+      </div>
     </article>
   </section>
 
